@@ -4,6 +4,13 @@ using System.Linq;
 using UnityEngine;
 
 // [RequireComponent(typeof(BoxCollider2D))]
+
+// We use virtual functions because we will use inheritance
+// In the first example, with the Chest1
+// 
+// There: we will use protected override with Oncollide
+// ans the autocomplete will write base.Onllide
+// that calls ths "base" inherit
 public class Collidable : MonoBehaviour
 {
 
@@ -40,6 +47,6 @@ public class Collidable : MonoBehaviour
     protected virtual void OnCollide(Collider2D coll)
     {
         //Debug.Log(coll.name);
-        
+
     }
 }
