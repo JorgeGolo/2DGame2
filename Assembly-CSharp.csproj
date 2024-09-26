@@ -67,6 +67,8 @@
     <Compile Include="Assets\Script\Chest1.cs" />
     <Compile Include="Assets\Script\CameraMotor.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
+    <Compile Include="Assets\Script\GameManager.cs" />
+    <Compile Include="Assets\Script\Portal.cs" />
     <Compile Include="Assets\Script\Player.cs" />
     <Compile Include="Assets\Script\Collidable.cs" />
     <Compile Include="Assets\Script\Collectable.cs" />
