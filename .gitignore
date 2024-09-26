@@ -1,0 +1,4 @@
+# Ignorar carpetas y archivos temporales
+Temp/
+Logs/
+Library/
