@@ -15,7 +15,6 @@ public class Chest1 : Collectable
     public Sprite emptyChest;
     public int coins = 5;
 
-
     protected override void OnCollect()
     {
         if(!collected)

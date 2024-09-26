@@ -9,8 +9,8 @@ using UnityEngine;
 // In the first example, with the Chest1
 // 
 // There: we will use protected override with Oncollide
-// ans the autocomplete will write base.Onllide
-// that calls ths "base" inherit
+// and the autocomplete will write base.Onllide
+// that calls to the "base" inherit
 public class Collidable : MonoBehaviour
 {
 
