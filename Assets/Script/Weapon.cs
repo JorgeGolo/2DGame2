@@ -38,7 +38,33 @@ public class Weapon : Collidable
     {
         Debug.Log("swing!");
     }
-    
+
     //
 
+    protected override void OnCollide(Collider2D coll)
+    {
+        //base.OnCollide(coll);
+        if (coll.tag == "Fighter") 
+        {
+            if (coll.name == "Player")
+            {
+                return;
+            }
+            
+            // Create a new Famage Objet, 
+            // set to the fighter 
+
+            Damage dmg = new Damage
+            {
+                damageAmount = damagePoint,
+                origin = transform.position,
+                pushForce = pushForce
+            };
+
+            coll.SendMessage("ReceivedDamage", dmg);
+            
+            Debug.Log(coll.name);
+
+        }
+    }
 }
