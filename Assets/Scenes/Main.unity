@@ -2406,7 +2406,7 @@ MonoBehaviour:
   weaponSprites: []
   weaponPrices: 
   xpTable: 
-  player: {fileID: 0}
+  player: {fileID: 925623534}
   coins: 0
   experience: 0
 --- !u!4 &794989894
@@ -3830,6 +3830,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1555380425421463694, guid: 3509006ba7874e941974cac58ef121f5, type: 3}
   m_PrefabInstance: {fileID: 6869448713738321097}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &925623534 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3394823605751059929, guid: 3509006ba7874e941974cac58ef121f5, type: 3}
+  m_PrefabInstance: {fileID: 6869448713738321097}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b671953f6d7a43e4592382b8aed0596f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1340846084
 GameObject:
   m_ObjectHideFlags: 0

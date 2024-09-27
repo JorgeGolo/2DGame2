@@ -35,12 +35,25 @@ public class GameManager : MonoBehaviour
     // References
 
     public Player player;
+    public FloatingTextManager floatingTextManager;
     //public Weapon weapon...
 
     //Logic
 
     public int coins;
     public int experience;
+
+    public void ShowText(
+        string msg, 
+        int fontsize, 
+        Color color, 
+        Vector3 position, 
+        Vector3 motion, 
+        float duration)    
+    {
+        floatingTextManager.Show(msg, fontsize, color, position, motion, duration);
+    }
+    // so we can use GameManager.instance.ShoeText()
 
     // save state
 
