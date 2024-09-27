@@ -12294,6 +12294,7 @@ GameObject:
   - component: {fileID: 1426550557}
   - component: {fileID: 1426550555}
   - component: {fileID: 1426550556}
+  - component: {fileID: 1426550558}
   m_Layer: 0
   m_Name: weapon_0
   m_TagString: Untagged
@@ -12442,6 +12443,27 @@ MonoBehaviour:
   damagePoint: 1
   pushForce: 4
   weaponLevel: 0
+--- !u!95 &1426550558
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1426550553}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4d13f1b5c63d6964c91edd5ecb3430a0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1689404879
 GameObject:
   m_ObjectHideFlags: 0
