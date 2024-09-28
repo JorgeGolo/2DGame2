@@ -6,10 +6,21 @@ using UnityEngine.UI;
 public class FloatingTextManager : MonoBehaviour
 {
 
+    public static FloatingTextManager instance;
     public GameObject textContainer;
     public GameObject textPrefab;
     private List<FloatingText> floatingTexts = new List<FloatingText>();
 
+    private void Start()
+    {
+        if(FloatingTextManager.instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
     private void Update()
     {
         foreach (FloatingText txt in floatingTexts)

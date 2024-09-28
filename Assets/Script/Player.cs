@@ -8,11 +8,19 @@ public class Player : Mover
 {
 
     private SpriteRenderer spriteRenderer;
+    public static Player instance;
 
     protected override void Start()
     {
         base.Start();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        if(Player.instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+        DontDestroyOnLoad(gameObject);
     }
     private void FixedUpdate()
     {

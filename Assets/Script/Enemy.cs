@@ -22,6 +22,17 @@ public class Enemy : Mover
     // we can not heritate from collide
     private Collider2D[] hits = new Collider2D[10];
 
+
+   /*private void Awake()
+    {
+        base.Start();
+        playerTransform = GameManager.instance.player.transform;
+        startingPosition = transform.position;
+        // el hitbox es el sprite - go hijo del enemy...
+        hitbox = transform.GetChild(0).GetComponent<BoxCollider2D>();
+
+    }*/
+
     protected override void Start()
     {
         base.Start();

@@ -133,6 +133,8 @@ public class GameManager : MonoBehaviour
         // change weapon level
 
         //
+
+        player.transform.position = GameObject.Find("Spawn").transform.position;
         
         Debug.Log("Load");
     }
