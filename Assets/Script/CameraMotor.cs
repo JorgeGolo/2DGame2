@@ -5,9 +5,10 @@ using UnityEngine;
 public class CameraMotor : MonoBehaviour
 {
 
-    public Transform lookAt;
-    public float boundx = 0.3f;
-    public float boundy = 0.15f;
+    //[HideInInspector]
+    private Transform lookAt;
+    private float boundx = 0.3f;
+    private float boundy = 0.15f;
 
     private void Start()
     {

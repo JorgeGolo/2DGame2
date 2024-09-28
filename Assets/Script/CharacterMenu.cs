@@ -13,6 +13,16 @@ public class CharacterMenu : MonoBehaviour
     public Image weaponSprite;
     public RectTransform xpBar;
 
+    public static CharacterMenu instance;
+
+    // Start is called before the first frame update
+     void Start()
+    {
+
+        DontDestroyOnLoad(gameObject);
+    }
+
+
     public void OnArrowClick(bool right)
     {
         if(right)

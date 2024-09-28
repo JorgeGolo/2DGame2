@@ -85,5 +85,27 @@ public abstract class Mover : Fighter
         
     
     }
-
+    public void Heal(int healingAmount)
+    {
+        if (hitpoint > maxHitPoint)
+        { 
+            return;
+        }
+        hitpoint += healingAmount;
+        if(hitpoint > maxHitPoint)
+        {
+            hitpoint = maxHitPoint;
+        }
+        else
+        {
+        GameManager.instance.ShowText(
+            "+" + healingAmount.ToString() + " HP",
+            25,
+            Color.green,
+            transform.position,
+            Vector3.up *30,
+            1f
+        );
+        }
+    }
 }

@@ -50,7 +50,10 @@ public class Player : Mover
             OnLevelUp();
         }
     }
+    public void Heal(float healingAmount)
+    {
 
+    }
 
 
 }
