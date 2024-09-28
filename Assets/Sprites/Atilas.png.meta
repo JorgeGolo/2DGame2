@@ -1411,6 +1411,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: menu_0
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 64
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a0db7c0eabdaf2469b193403c8bd11d
+      internalID: 141449443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -1445,6 +1466,7 @@ TextureImporter:
       healingFountain_0: -1335900235
       healingFountain_1: -2142720405
       healingFountain_2: -1811841172
+      menu_0: 141449443
       pillar_0: 1302109289
       pillar_1: -802209440
       pillar_2: 448195743

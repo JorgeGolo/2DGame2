@@ -30,6 +30,8 @@ public class Chest1 : Collectable
             // and cins can not be collected again
             // coins = 0;
 
+            GameManager.instance.coins += coins;
+
             // showing a text, font 25, yellow, moving up
             GameManager.instance.ShowText(
                 "+" + coins + " coins!",
