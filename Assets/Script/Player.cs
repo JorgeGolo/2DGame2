@@ -29,6 +29,20 @@ public class Player : Mover
         spriteRenderer.sprite = GameManager.instance.playerSprites[skinID];    
     }
 
+    public void OnLevelUp()
+    {
+        maxHitPoint++;
+        hitpoint = maxHitPoint;
+    }
+
+    public void SetLevel(int level)
+    {
+        for (var i = 0; i < level; i++)
+        {
+            OnLevelUp();
+        }
+    }
+
 
 
 }

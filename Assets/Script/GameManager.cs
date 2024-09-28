@@ -125,6 +125,10 @@ public class GameManager : MonoBehaviour
         experience = int.Parse(data[2]);
         //weapon.weaponLevel = int.Parse(data[3]);
         weapon.SetWeaponLevel(int.Parse(data[3]));
+        if(GetCurrentLevel()!=1)
+        {
+            player.SetLevel(GetCurrentLevel());
+        }
         
         // change weapon level
 
@@ -167,6 +171,20 @@ public class GameManager : MonoBehaviour
         };
         
         return r;
+    }
+    public void GrantXP(int xp)
+    {
+        int currLevel = GetCurrentLevel();
+        experience += xp;
+        if(currLevel < GetCurrentLevel())
+        {
+            OnLevelUp();
+        }
+    }
+    public void OnLevelUp()
+    {
+        //Debug.Log("levelup");
+        player.OnLevelUp();
     }
 }
 
