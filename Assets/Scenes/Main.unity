@@ -205,7 +205,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 83280603}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 509324327}
+        m_TargetAssemblyTypeName: CharacterMenu, Assembly-CSharp
+        m_MethodName: OnUpgradeClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &83280603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3150,10 +3162,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSprites: []
-  weaponSprites: []
-  weaponPrices: 
+  weaponSprites:
+  - {fileID: 491302294, guid: 66dd0b925587f034da1ff1bef84280e1, type: 3}
+  - {fileID: 682287953, guid: 66dd0b925587f034da1ff1bef84280e1, type: 3}
+  - {fileID: -1873275949, guid: 66dd0b925587f034da1ff1bef84280e1, type: 3}
+  - {fileID: 149683957, guid: 66dd0b925587f034da1ff1bef84280e1, type: 3}
+  - {fileID: 1913173361, guid: 66dd0b925587f034da1ff1bef84280e1, type: 3}
+  - {fileID: 378264204, guid: 66dd0b925587f034da1ff1bef84280e1, type: 3}
+  - {fileID: 994649433, guid: 66dd0b925587f034da1ff1bef84280e1, type: 3}
+  - {fileID: 1779524822, guid: 66dd0b925587f034da1ff1bef84280e1, type: 3}
+  weaponPrices: 020000001e0000004600000082000000c80000001801000090010000
   xpTable: 
   player: {fileID: 925623534}
+  weapon: {fileID: 1426550557}
   floatingTextManager: {fileID: 1213657507}
   coins: 0
   experience: 0
@@ -13642,9 +13663,18 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
-  damagePoint: 1
-  pushForce: 4
+  damagePoint: 0100000002000000030000000400000005000000060000000700000008000000
+  pushForce:
+  - 2
+  - 2.2
+  - 2.5
+  - 3
+  - 3.2
+  - 3.6
+  - 4
+  - 4.5
   weaponLevel: 0
+  spriteRenderer: {fileID: 1426550555}
 --- !u!95 &1426550558
 Animator:
   serializedVersion: 5
@@ -15157,8 +15187,8 @@ SceneRoots:
   - {fileID: 1364168117}
   - {fileID: 115276065068067072}
   - {fileID: 794989894}
-  - {fileID: 1052754258}
   - {fileID: 1136083660}
   - {fileID: 1254445998}
   - {fileID: 509324324}
+  - {fileID: 1052754258}
   - {fileID: 1907889116}

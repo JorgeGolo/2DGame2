@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -42,13 +43,24 @@ public class CharacterMenu : MonoBehaviour
 
     public void OnUpgradeClick()
     {
-
+        if(GameManager.instance.TryUpgradeWeapon())
+        {
+            UpdateMenu();
+        }
     }
     public void UpdateMenu()
     {
 
-        weaponSprite.sprite = GameManager.instance.weaponSprites[0];
-        upgradeCostText.text = "not implemented";
+        weaponSprite.sprite = GameManager.instance.weaponSprites[GameManager.instance.weapon.weaponLevel];
+        if(GameManager.instance.weapon.weaponLevel == GameManager.instance.weaponPrices.Count)
+        {
+            upgradeCostText.text = "MAX";
+        }
+        else
+        {
+            upgradeCostText.text = GameManager.instance.weaponPrices[GameManager.instance.weapon.weaponLevel].ToString();
+        }
+        
 
         hitpointText.text = GameManager.instance.player.hitpoint.ToString();
         coinsText.text = GameManager.instance.coins.ToString();

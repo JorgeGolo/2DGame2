@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
     // References
 
     public Player player;
+    public Weapon weapon;
     public FloatingTextManager floatingTextManager;
     //public Weapon weapon...
 
@@ -53,6 +54,26 @@ public class GameManager : MonoBehaviour
     {
         floatingTextManager.Show(msg, fontsize, color, position, motion, duration);
     }
+
+    public bool TryUpgradeWeapon()
+    {
+        if(weaponPrices.Count <= weapon.weaponLevel)
+        {
+            return false;
+        }
+
+        if(coins >= weaponPrices[weapon.weaponLevel])
+        {
+            coins -= weaponPrices[weapon.weaponLevel];
+            weapon.UpgradeWeapon();
+            return true;
+        }
+
+        return false;
+        
+
+    }
+
     // so we can use GameManager.instance.ShoeText()
 
     // save state
@@ -75,7 +96,7 @@ public class GameManager : MonoBehaviour
         es += "0" + "|"; 
         es += coins.ToString() + "|";
         es += experience.ToString() + "|";
-        es += "0"; 
+        es += weapon.weaponLevel.ToString(); 
 
         PlayerPrefs.SetString("SaveState", es);
     }
@@ -102,6 +123,8 @@ public class GameManager : MonoBehaviour
 
         coins = int.Parse(data[1]);
         experience = int.Parse(data[2]);
+        //weapon.weaponLevel = int.Parse(data[3]);
+        weapon.SetWeaponLevel(int.Parse(data[3]));
         
         // change weapon level
 
