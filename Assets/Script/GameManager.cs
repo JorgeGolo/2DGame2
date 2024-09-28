@@ -132,6 +132,42 @@ public class GameManager : MonoBehaviour
         
         Debug.Log("Load");
     }
+
+    private void Update()
+    {
+        //Debug.Log(GetCurrentLevel());
+    }
+
+    public int GetXpToLovel(int level)
+    {
+        int r = 0;
+        int xp = 0;
+        while(r<level)
+        {
+            xp+=xpTable[r];
+            r++;
+        }
+        return xp;
+    }
+    // Experience system
+    public int GetCurrentLevel()
+    {
+        int r = 0;
+        int add = 0;
+
+        while(experience >= add)
+        {
+            add += xpTable[r];
+            r++;
+
+            if(r == xpTable.Count)
+            {
+                return r;
+            }
+        };
+        
+        return r;
+    }
 }
 
 
