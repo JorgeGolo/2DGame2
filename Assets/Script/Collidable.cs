@@ -32,7 +32,6 @@ public class Collidable : MonoBehaviour
             if(hits[i] == null)
                 continue;
 
-
             //Debug.Log(hits[i].name);
             //if (this.tag == "NPC_0") ( ... ) // say something...
             //if (this.tag == "modenas") ( ... ) // grant monedas...

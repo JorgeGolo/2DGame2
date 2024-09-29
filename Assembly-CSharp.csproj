@@ -83,6 +83,7 @@
     <Compile Include="Assets\Script\Weapon.cs" />
     <Compile Include="Assets\Script\HUDManager.cs" />
     <Compile Include="Assets\Script\Crate.cs" />
+    <Compile Include="Assets\Script\NPCTextPerson.cs" />
     <Compile Include="Assets\Script\Collectable.cs" />
   </ItemGroup>
   <ItemGroup>
