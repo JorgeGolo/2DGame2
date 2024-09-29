@@ -5,9 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-
     public static GameManager instance;
-
     private void Awake()
     {
         if(GameManager.instance != null)
@@ -16,13 +14,14 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        // to start with no data
-        // PlayerPrefs.DeleteAll();
-
         instance = this;
         SceneManager.sceneLoaded += LoadState;
 
         DontDestroyOnLoad(gameObject);
+
+        // to start with no data
+        // PlayerPrefs.DeleteAll();
+
     }
 
     // Resources
@@ -74,18 +73,6 @@ public class GameManager : MonoBehaviour
 
     }
 
-    // so we can use GameManager.instance.ShoeText()
-
-    // save state
-
-    /*
-    
-        INT preferedSkin
-        INt coins
-        INT experience
-        INT weaponLevel
-    
-    */
     public void SaveState()
     {
 
@@ -115,12 +102,6 @@ public class GameManager : MonoBehaviour
         string[] data = PlayerPrefs.GetString("SaveState").Split('|');
         // "0|10|15" -> 
 
-        // change player skin
-
-        //
-
-        // change coins, xp parsing
-
         coins = int.Parse(data[1]);
         experience = int.Parse(data[2]);
         //weapon.weaponLevel = int.Parse(data[3]);
@@ -129,14 +110,12 @@ public class GameManager : MonoBehaviour
         {
             player.SetLevel(GetCurrentLevel());
         }
-        
-        // change weapon level
-
-        //
+        //player.SetLevel(GetCurrentLevel());
 
         player.transform.position = GameObject.Find("Spawn").transform.position;
         
         Debug.Log("Load");
+
     }
 
     private void Update()

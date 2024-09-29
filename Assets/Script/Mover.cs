@@ -87,25 +87,28 @@ public abstract class Mover : Fighter
     }
     public void Heal(int healingAmount)
     {
-        if (hitpoint > maxHitPoint)
+        Debug.Log("EMPIEZA CURACION!");
+
+        if (hitpoint < maxHitPoint)
         { 
-            return;
-        }
-        hitpoint += healingAmount;
-        if(hitpoint > maxHitPoint)
-        {
-            hitpoint = maxHitPoint;
+           
+            Debug.Log("A CURAR!");
+
+            hitpoint += healingAmount;
+
+            GameManager.instance.ShowText(
+                "+" + healingAmount.ToString() + " HP",
+                25,
+                Color.green,
+                transform.position,
+                Vector3.up *30,
+                1f
+            );
         }
         else
         {
-        GameManager.instance.ShowText(
-            "+" + healingAmount.ToString() + " HP",
-            25,
-            Color.green,
-            transform.position,
-            Vector3.up *30,
-            1f
-        );
+            Debug.Log("NO CURAR!");
         }
+        
     }
 }

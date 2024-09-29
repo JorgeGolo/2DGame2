@@ -50,10 +50,34 @@ public class Player : Mover
             OnLevelUp();
         }
     }
-    public void Heal(float healingAmount)
-    {
 
+        public void Heal(int healingAmount)
+    {
+        Debug.Log("EMPIEZA CURACION!");
+
+        if (hitpoint < maxHitPoint)
+        { 
+           
+            Debug.Log("A CURAR!");
+
+            hitpoint += healingAmount;
+
+            GameManager.instance.ShowText(
+                "+" + healingAmount.ToString() + " hp",
+                15,
+                Color.green,
+                transform.position,
+                Vector3.up *30,
+                1f
+            );
+        }
+        else
+        {
+            Debug.Log("NO CURAR!");
+        }
+        
     }
+
 
 
 }

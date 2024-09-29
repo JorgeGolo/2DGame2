@@ -19175,6 +19175,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3215651097523021540, guid: e2baa6e6487f24642960e8cc4af77606, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3215651097523021540, guid: e2baa6e6487f24642960e8cc4af77606, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5808244163376924276, guid: e2baa6e6487f24642960e8cc4af77606, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.4356308
@@ -19235,7 +19243,7 @@ GameObject:
   - component: {fileID: 1106207251}
   - component: {fileID: 1106207250}
   - component: {fileID: 1106207249}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: HFountain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22669,7 +22677,7 @@ GameObject:
   - component: {fileID: 1993379175}
   - component: {fileID: 1993379174}
   - component: {fileID: 1993379173}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: HFountain (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

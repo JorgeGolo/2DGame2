@@ -11,16 +11,20 @@ public class HealigFountain : Collidable
 
     protected override void OnCollide(Collider2D coll)
     {
-        if (coll.name != "Player")
+        if (coll.name == "Player")
         {
-            return;
-        }
+            
+            
             //base.OnCollide(coll);
             if(Time.time - lastHeal > healCooldown)
             {
+                Debug.Log("CURAR 1");
                 lastHeal = Time.time;
                 GameManager.instance.player.Heal(healingAmount);
+                //Player.instance.Heal(healingAmount);
             }
+
+        }
         
     }
 
