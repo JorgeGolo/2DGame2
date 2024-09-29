@@ -22,6 +22,12 @@ public class Player : Mover
         instance = this;
         DontDestroyOnLoad(gameObject);
     }
+
+    protected override void ReceivedDamage(Damage dmg)
+    {
+        base.ReceivedDamage(dmg);
+        GameManager.instance.OnHitPointChange();
+    }
     private void FixedUpdate()
     {
         float x = Input.GetAxisRaw("Horizontal");
@@ -51,14 +57,14 @@ public class Player : Mover
         }
     }
 
-        public void Heal(int healingAmount)
+    public void Heal(int healingAmount)
     {
-        Debug.Log("EMPIEZA CURACION!");
+        //Debug.Log("EMPIEZA CURACION!");
 
         if (hitpoint < maxHitPoint)
         { 
            
-            Debug.Log("A CURAR!");
+           // Debug.Log("A CURAR!");
 
             hitpoint += healingAmount;
 
@@ -70,14 +76,15 @@ public class Player : Mover
                 Vector3.up *30,
                 1f
             );
+            GameManager.instance.OnHitPointChange();
         }
         else
         {
-            Debug.Log("NO CURAR!");
+           // Debug.Log("NO CURAR!");
         }
         
     }
 
-
+    
 
 }

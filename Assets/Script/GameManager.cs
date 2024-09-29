@@ -15,10 +15,13 @@ public class GameManager : MonoBehaviour
         }
 
         instance = this;
-        SceneManager.sceneLoaded += LoadState;
+        
+        
 
         DontDestroyOnLoad(gameObject);
 
+        SceneManager.sceneLoaded += LoadState;
+        SceneManager.sceneLoaded += OnSceneLoaded;
         // to start with no data
         // PlayerPrefs.DeleteAll();
 
@@ -37,6 +40,7 @@ public class GameManager : MonoBehaviour
     public Weapon weapon;
     public FloatingTextManager floatingTextManager;
     //public Weapon weapon...
+    public RectTransform hitPointBar;
 
     //Logic
 
@@ -73,6 +77,16 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void OnHitPointChange()
+    {
+        float ratio = (float)player.hitpoint / (float)player.maxHitPoint;
+        hitPointBar.localScale = new Vector3(1,ratio,1);
+    }
+
+    public void OnSceneLoaded(Scene s, LoadSceneMode mode)
+    {
+        player.transform.position = GameObject.Find("Spawn").transform.position;   
+    }
     public void SaveState()
     {
 
@@ -112,9 +126,9 @@ public class GameManager : MonoBehaviour
         }
         //player.SetLevel(GetCurrentLevel());
 
-        player.transform.position = GameObject.Find("Spawn").transform.position;
         
-        Debug.Log("Load");
+        
+        //Debug.Log("Load");
 
     }
 
@@ -166,6 +180,7 @@ public class GameManager : MonoBehaviour
     {
         //Debug.Log("levelup");
         player.OnLevelUp();
+        OnHitPointChange();
     }
 }
 

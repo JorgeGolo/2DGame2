@@ -7,9 +7,15 @@ public class HUDManager : MonoBehaviour
     public static HUDManager instance;
 
     // Start is called before the first frame update
-     void Start()
+    void Start()
     {
 
+        if(HUDManager.instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
         DontDestroyOnLoad(gameObject);
     }
 
