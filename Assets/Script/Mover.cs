@@ -6,7 +6,7 @@ using UnityEngine;
 // no se puede adjuntar a nada, por eso abstracrt
 public abstract class Mover : Fighter
 {
-    
+    private Vector3 originalSize;
     private Vector3 moveDelta;
     private BoxCollider2D boxcollider;
     private RaycastHit2D hit;
@@ -17,6 +17,8 @@ public abstract class Mover : Fighter
     protected virtual void Start()
     {
         boxcollider = GetComponent<BoxCollider2D>();
+        originalSize = transform.localScale;
+
     }
 
     private void OnCollection()
@@ -36,11 +38,12 @@ public abstract class Mover : Fighter
         // sprite direction, throught localScale
         if (moveDelta.x > 0)
         {
-            transform.localScale = Vector3.one;
+            //transform.localScale = Vector3.one;
+            transform.localScale = originalSize;
         }
         else if (moveDelta.x < 0)
         {
-            transform.localScale = new Vector3(-1, 1, 1);
+            transform.localScale = new Vector3(originalSize.x * -1, originalSize.y, originalSize.z);
         }
 
 

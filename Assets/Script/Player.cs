@@ -8,6 +8,8 @@ public class Player : Mover
 {
 
     private SpriteRenderer spriteRenderer;
+
+    private bool isAlive = true;
     public static Player instance;
 
     protected override void Start()
@@ -23,8 +25,23 @@ public class Player : Mover
         DontDestroyOnLoad(gameObject);
     }
 
+    protected override void Death()
+    {
+        //base.Death();
+        GameManager.instance.defMenuAnimator.SetTrigger("show");
+    }
+
+    public void Respawn()
+    {
+        Heal(maxHitPoint);
+        isAlive = true;
+        lastInmune = Time.time;
+        pushDirection = Vector3.zero;
+    }
     protected override void ReceivedDamage(Damage dmg)
     {
+        if (!isAlive)
+            return;
         base.ReceivedDamage(dmg);
         GameManager.instance.OnHitPointChange();
     }
@@ -34,7 +51,10 @@ public class Player : Mover
         float y = Input.GetAxisRaw("Vertical");
 
         // from Mover    
-        UpdateMotor(new Vector3(x,y,0));
+        if (isAlive)
+        {
+            UpdateMotor(new Vector3(x,y,0));
+        }
     
     }
 

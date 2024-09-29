@@ -6,6 +6,30 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+
+
+    // Resources
+    public List<Sprite> playerSprites;
+    public List<Sprite> weaponSprites;
+    public List<int> weaponPrices;
+    public List<int> xpTable;
+    
+
+    // References
+
+    public Player player;
+    public Weapon weapon;
+    public FloatingTextManager floatingTextManager;
+    //public Weapon weapon...
+    public RectTransform hitPointBar;
+    public Animator defMenuAnimator;
+
+    //Logic
+
+    public int coins;
+    public int experience;
+
+
     private void Awake()
     {
         if(GameManager.instance != null)
@@ -26,26 +50,6 @@ public class GameManager : MonoBehaviour
         // PlayerPrefs.DeleteAll();
 
     }
-
-    // Resources
-    public List<Sprite> playerSprites;
-    public List<Sprite> weaponSprites;
-    public List<int> weaponPrices;
-    public List<int> xpTable;
-    
-
-    // References
-
-    public Player player;
-    public Weapon weapon;
-    public FloatingTextManager floatingTextManager;
-    //public Weapon weapon...
-    public RectTransform hitPointBar;
-
-    //Logic
-
-    public int coins;
-    public int experience;
 
     public void ShowText(
         string msg, 
@@ -81,6 +85,13 @@ public class GameManager : MonoBehaviour
     {
         float ratio = (float)player.hitpoint / (float)player.maxHitPoint;
         hitPointBar.localScale = new Vector3(1,ratio,1);
+    }
+
+    public void Respawn()
+    {
+        defMenuAnimator.SetTrigger("hide");
+        SceneManager.LoadScene("Main");
+        player.Respawn();
     }
 
     public void OnSceneLoaded(Scene s, LoadSceneMode mode)
