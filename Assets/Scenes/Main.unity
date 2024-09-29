@@ -533,7 +533,7 @@ GameObject:
   - component: {fileID: 444808508}
   - component: {fileID: 444808506}
   - component: {fileID: 444808505}
-  m_Layer: 10
+  m_Layer: 9
   m_Name: TEST_npc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -623,8 +623,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1235441447
-  m_SortingLayer: 2
+  m_SortingLayerID: 859313661
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -1892498986, guid: 66dd0b925587f034da1ff1bef84280e1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -678,7 +678,7 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
-  message: Welcome to the game! Hit the boxes and squeletons!
+  message: Welcome to the Dungeon! Start exploring!
 --- !u!1 &509324320
 GameObject:
   m_ObjectHideFlags: 0
