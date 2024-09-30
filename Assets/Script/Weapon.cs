@@ -19,7 +19,7 @@ public class Weapon : Collidable
     // swing
 
     private Animator anim;
-    //private float cooldown = 0.5f;
+    private float cooldown = 0.3f;
     private float lastSwing;
 
     private void Awake()
@@ -33,23 +33,33 @@ public class Weapon : Collidable
         //spriteRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
 
-
     }
 
     protected override void Update()
     {
         base.Update();
-        if(Input.GetKeyDown(KeyCode.Space))
+        //if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            lastSwing = Time.time;
+            //lastSwing = Time.time;
+
             Swing();
         }
+
     }
 
-    private void Swing()
+
+
+    public void Swing()
     {
-        //Debug.Log("swing!");
-        anim.SetTrigger("Swing");
+
+        if(Time.time - lastSwing > cooldown)
+        {
+            lastSwing = Time.time;
+            //Debug.Log("swing!");
+            anim.SetTrigger("Swing");
+        }   
+
     }
 
     //
