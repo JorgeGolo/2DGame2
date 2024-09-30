@@ -16,6 +16,8 @@ public class Portal : Collidable
         {
             // Teleport the player
 
+            GameManager.instance.pad.ResetButtonStates();
+
             //GameManager.instance.SaveState();
             string sceneName = sceneNames[Random.Range(0,sceneNames.Length)];
 

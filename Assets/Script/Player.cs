@@ -9,7 +9,7 @@ public class Player : Mover
 
     private SpriteRenderer spriteRenderer;
 
-    private bool isAlive = true;
+    public bool isAlive = true;
     public static Player instance;
 
     protected override void Start()

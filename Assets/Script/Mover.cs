@@ -27,7 +27,7 @@ public abstract class Mover : Fighter
     }
 
 
-    protected virtual void UpdateMotor(Vector3 input)
+    public virtual void UpdateMotor(Vector3 input)
     {
         
         // Reset moveDelta

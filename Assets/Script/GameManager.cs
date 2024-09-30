@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour
     public RectTransform hitPointBar;
     public Animator defMenuAnimator;
 
+    public MoveByButtons pad;
+
     //Logic
 
     public int coins;
@@ -41,7 +43,7 @@ public class GameManager : MonoBehaviour
         instance = this;
         
           // to start with no data
-        PlayerPrefs.DeleteAll();   
+        // PlayerPrefs.DeleteAll();   
 
         DontDestroyOnLoad(gameObject);
 
@@ -50,6 +52,11 @@ public class GameManager : MonoBehaviour
    
 
     }
+
+    void Start()
+    {
+    }
+
 
     public void ShowText(
         string msg, 

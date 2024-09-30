@@ -71,6 +71,7 @@
     <Compile Include="Assets\Script\CameraMotor.cs" />
     <Compile Include="Assets\Script\FloatingText.cs" />
     <Compile Include="Assets\Script\CharacterMenu.cs" />
+    <Compile Include="Assets\Script\MoveByButtons.cs" />
     <Compile Include="Assets\Script\Damage.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Script\GameManager.cs" />
