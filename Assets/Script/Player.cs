@@ -40,10 +40,12 @@ public class Player : Mover
     }
     protected override void ReceivedDamage(Damage dmg)
     {
-        if (!isAlive)
-            return;
-        base.ReceivedDamage(dmg);
-        GameManager.instance.OnHitPointChange();
+        if (isAlive)
+        {
+            base.ReceivedDamage(dmg);
+            GameManager.instance.OnHitPointChange();
+        }    
+        
     }
     private void FixedUpdate()
     {
@@ -76,6 +78,19 @@ public class Player : Mover
             OnLevelUp();
         }
     }
+    public void SetLevel1()
+    {
+        maxHitPoint = 10;
+        hitpoint = 10;
+        GameManager.instance.weapon.weaponLevel = 0;
+        GameManager.instance.experience = 0;
+        GameManager.instance.coins = 0;
+        
+        PlayerPrefs.DeleteAll();   
+
+        CharacterMenu.instance.UpdateMenu();
+    }
+
 
     public void Heal(int healingAmount)
     {

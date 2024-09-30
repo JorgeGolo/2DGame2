@@ -40,14 +40,14 @@ public class GameManager : MonoBehaviour
 
         instance = this;
         
-        
+          // to start with no data
+        PlayerPrefs.DeleteAll();   
 
         DontDestroyOnLoad(gameObject);
 
         SceneManager.sceneLoaded += LoadState;
         SceneManager.sceneLoaded += OnSceneLoaded;
-        // to start with no data
-        // PlayerPrefs.DeleteAll();
+   
 
     }
 

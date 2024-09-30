@@ -16,12 +16,18 @@ public class CharacterMenu : MonoBehaviour
     public static CharacterMenu instance;
 
     // Start is called before the first frame update
-     void Start()
-    {
 
+
+    void Awake()
+    {
+        if(CharacterMenu.instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
         DontDestroyOnLoad(gameObject);
     }
-
 
     public void OnArrowClick(bool right)
     {

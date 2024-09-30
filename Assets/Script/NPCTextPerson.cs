@@ -26,8 +26,8 @@ public class NPCTextPerson : Collidable
                 message,
                 20,
                 Color.white,
-                //transform.position + new Vector3(0,0.16f,0),
-                transform.position + Vector3.up,
+                transform.position + new Vector3(0,0.16f,0),
+                //transform.position + Vector3.up,
                 Vector3.zero,
                 cooldown
             );

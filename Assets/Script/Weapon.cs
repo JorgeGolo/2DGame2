@@ -19,7 +19,7 @@ public class Weapon : Collidable
     // swing
 
     private Animator anim;
-    private float cooldown = 0.5f;
+    //private float cooldown = 0.5f;
     private float lastSwing;
 
     private void Awake()
