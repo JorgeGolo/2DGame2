@@ -101,7 +101,7 @@ public class GameManager : MonoBehaviour
     public void SaveState()
     {
 
-        Debug.Log("Save");
+        //Debug.Log("Save");
 
         string es = "";
 

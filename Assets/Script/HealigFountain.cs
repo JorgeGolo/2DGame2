@@ -18,7 +18,7 @@ public class HealigFountain : Collidable
             //base.OnCollide(coll);
             if(Time.time - lastHeal > healCooldown)
             {
-                Debug.Log("CURAR 1");
+                //Debug.Log("CURAR 1");
                 lastHeal = Time.time;
                 GameManager.instance.player.Heal(healingAmount);
                 //Player.instance.Heal(healingAmount);

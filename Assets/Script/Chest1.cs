@@ -20,11 +20,11 @@ public class Chest1 : Collectable
         if(!collected)
         {
             base.OnCollect(); //collected = true;
-            Debug.Log("grant coins");
+            //Debug.Log("grant coins");
 
             // change the sprite
             GetComponent<SpriteRenderer>().sprite = emptyChest;
-            Debug.Log("coins granted: " + coins);
+            //Debug.Log("coins granted: " + coins);
 
             // not needed, because collected was setted to true, by base.OnCollect
             // and cins can not be collected again
