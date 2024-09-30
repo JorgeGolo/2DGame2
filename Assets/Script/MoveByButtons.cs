@@ -30,13 +30,12 @@ public class MoveByButtons : MonoBehaviour
         AssignButtonEvents(buttonDown, "Down");
         AssignButtonEvents(buttonRight, "Right");
         AssignButtonEvents(buttonLeft, "Left");
-        ResetButtonStates();
     
     }
 
     public void ResetButtonStates()
     {
-        Debug.Log("Resetear botones");
+        //Debug.Log("Resetear botones");
         // Asegúrate de que los botones no están en un estado presionado
         moveUp = false;
         moveDown = false;
@@ -44,10 +43,6 @@ public class MoveByButtons : MonoBehaviour
         moveLeft = false;
         
         // Aquí puedes agregar código adicional para cambiar el estado visual de los botones si es necesario.
-    }
-    void OnEnable()
-    {
-        ResetButtonStates(); // Resetea los estados cuando el objeto se habilita
     }
 
     void Update()
