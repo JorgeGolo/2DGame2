@@ -14,6 +14,9 @@ public class CharacterMenu : MonoBehaviour
 
     public static CharacterMenu instance;
 
+    public bool toggleMenu = true;
+    public Button menuButton;
+
     // Start is called before the first frame update
 
 
@@ -109,6 +112,15 @@ public class CharacterMenu : MonoBehaviour
         //xpText.text = "not implemented";
         //xpBar.localScale = new Vector3(0.5f,0,0);
 
+    }
+
+    public void SetMenuButton()
+    {
+        toggleMenu = !toggleMenu;
+        if (menuButton != null)
+        {
+            menuButton.interactable = toggleMenu; // Si active es true, el botón se activa. Si es false, se desactiva.
+        }
     }
 
 

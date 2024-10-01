@@ -53,8 +53,9 @@ public class GameManager : MonoBehaviour
 
     }
 
-    void Start()
+     public void Exit()
     {
+        Application.Quit();
     }
 
 

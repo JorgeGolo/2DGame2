@@ -69,6 +69,7 @@
     <Compile Include="Assets\Script\HealigFountain.cs" />
     <Compile Include="Assets\Script\Enemy.cs" />
     <Compile Include="Assets\Script\CameraMotor.cs" />
+    <Compile Include="Assets\Script\MoveStick.cs" />
     <Compile Include="Assets\Script\FloatingText.cs" />
     <Compile Include="Assets\Script\CharacterMenu.cs" />
     <Compile Include="Assets\Script\MoveByButtons.cs" />
