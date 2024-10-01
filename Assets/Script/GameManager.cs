@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,6 +32,8 @@ public class GameManager : MonoBehaviour
     public int coins;
     public int experience;
 
+    
+
 
     private void Awake()
     {
@@ -57,6 +60,12 @@ public class GameManager : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void ToggleButtonMenu()
+    {
+
+    }
+
 
 
     public void ShowText(

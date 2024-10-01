@@ -1,61 +1,63 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class MoveStick : MonoBehaviour
 {
-    public Sprite MoveStickLeftSprite;
-    public Sprite MoveStickRightSprite;
-    public Sprite MoveStickUpSprite;
-    public Sprite MoveStickDownSprite;
-    public Sprite MoveStickIdleSprite; // Sprite en reposo
+    private bool touchStart = false;
+    private Vector3 pointA;
+    private Vector3 pointB;
 
-    public Image moveStickImage; // La imagen del stick
+    public Player player;  // Referencia al script del jugador donde se mueve.
 
-    private Vector2 inputVector;
+    public Transform circle;
+    public Transform outterCircle;
 
-    void Start()
+    void Update()
     {
-        // Inicializamos el stick en el sprite en reposo
-        moveStickImage.sprite = MoveStickIdleSprite;
-        inputVector = Vector2.zero;
-    }
-
-    public void OnDrag(Vector2 direction)
-    {
-        // Calculamos la dirección de arrastre
-        inputVector = direction.normalized; // Normalizamos el vector para obtener solo la dirección
-        UpdateStickSprite();
-    }
-
-    void UpdateStickSprite()
-    {
-        // Cambiar el sprite según la dirección del inputVector
-        if (inputVector.x < 0)
+        // Detectar cuando se inicia el toque o clic
+        if(Input.GetMouseButtonDown(0))
         {
-            Debug.Log(inputVector.x);
-            moveStickImage.sprite = MoveStickLeftSprite; // Mover a la izquierda
+            pointA = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane));
+
+            circle.transform.position = pointA * -1;
+            outterCircle.transform.position = pointA * -1;
+            circle.GetComponent<SpriteRenderer>().enabled = true;
+            outterCircle.GetComponent<SpriteRenderer>().enabled = true;
         }
-        else if (inputVector.x > 0)
-        { Debug.Log(inputVector.x);
-            moveStickImage.sprite = MoveStickRightSprite; // Mover a la derecha
-        }
-        else if (inputVector.y > 0)
-        { Debug.Log(inputVector.y);
-            moveStickImage.sprite = MoveStickUpSprite; // Mover hacia arriba
-        }
-        else if (inputVector.y < 0)
-        { Debug.Log(inputVector.x);
-            moveStickImage.sprite = MoveStickDownSprite; // Mover hacia abajo
+
+        // Actualizar la posición mientras el toque o clic está activo
+        if(Input.GetMouseButton(0))
+        {
+            touchStart = true;
+            pointB = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane));
         }
         else
         {
-            moveStickImage.sprite = MoveStickIdleSprite; // Si no hay movimiento, sprite en reposo
+            touchStart = false;
         }
     }
 
-    public void ResetStick()
+    void FixedUpdate()
     {
-        // Volvemos el sprite del stick a su estado de reposo
-        moveStickImage.sprite = MoveStickIdleSprite;
+        if(touchStart)
+        {
+            Debug.Log("mover");
+            
+            // Calcular la diferencia entre las posiciones inicial y final
+            Vector3 offset = pointB - pointA;
+
+            // Normalizar el vector para limitar la dirección y evitar un desplazamiento excesivo
+            Vector3 direction = Vector3.ClampMagnitude(new Vector3(offset.x, offset.y, 0), 1.0f);
+
+            // Llamar a UpdateMotor para mover al jugador
+            player.UpdateMotor(direction);
+            circle.transform.position = new Vector3(pointA.x + direction.x, pointA.y + direction.y, 0) * -1;
+        }
+        else
+        {
+            // Si no hay toque, parar el movimiento
+            player.UpdateMotor(Vector3.zero);
+            circle.GetComponent<SpriteRenderer>().enabled = false;
+            outterCircle.GetComponent<SpriteRenderer>().enabled = false;
+        }
     }
 }
