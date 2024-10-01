@@ -78,6 +78,7 @@
     <Compile Include="Assets\Script\GameManager.cs" />
     <Compile Include="Assets\Script\Mover.cs" />
     <Compile Include="Assets\Script\FloatingTextManager.cs" />
+    <Compile Include="Assets\Script\MoveScriptPanel.cs" />
     <Compile Include="Assets\Script\EnemyHitbox.cs" />
     <Compile Include="Assets\Script\Portal.cs" />
     <Compile Include="Assets\Script\Player.cs" />
