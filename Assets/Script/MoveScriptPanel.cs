@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class MoveScriptPanel : MonoBehaviour
@@ -15,6 +16,9 @@ public class MoveScriptPanel : MonoBehaviour
     public Canvas canvas;  // El canvas donde está el joystick, para convertir correctamente las coordenadas
     public float joystickMaxRange = 100f;  // Radio máximo del joystick en píxeles
 
+    // movement bug with attack button
+    public Button attackButton;  // Referencia al botón de ataque
+
     void Start()
     {
         // Fijar la posición inicial del círculo exterior (outterCircle)
@@ -23,11 +27,31 @@ public class MoveScriptPanel : MonoBehaviour
 
 
     }
+    // Función que comprueba si el toque o clic está sobre el botón de ataque
+    private bool IsPointerOverAttackButton()
+    {
+        PointerEventData pointerData = new PointerEventData(EventSystem.current)
+        {
+            position = Input.mousePosition
+        };
 
+        var raycastResults = new System.Collections.Generic.List<RaycastResult>();
+        EventSystem.current.RaycastAll(pointerData, raycastResults);
+
+        foreach (var result in raycastResults)
+        {
+            if (result.gameObject == attackButton.gameObject)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
     void Update()
     {
-        // Detectar cuando se inicia el toque o clic
-        if (Input.GetMouseButtonDown(0))
+         // Detectar cuando se inicia el toque o clic
+        if (Input.GetMouseButtonDown(0) && !IsPointerOverAttackButton())
         {
             // Verificar si el clic está dentro del área del círculo exterior
             if (RectTransformUtility.RectangleContainsScreenPoint(outterCircle, Input.mousePosition, canvas.worldCamera))

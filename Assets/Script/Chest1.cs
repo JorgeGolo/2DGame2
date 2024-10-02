@@ -42,6 +42,8 @@ public class Chest1 : Collectable
                 1.5f
             );
 
+            //CharacterMenu.instance.UpdateMenu();
+
         }
 
     }

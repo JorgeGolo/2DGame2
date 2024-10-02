@@ -52,9 +52,18 @@ public class GameManager : MonoBehaviour
 
         SceneManager.sceneLoaded += LoadState;
         SceneManager.sceneLoaded += OnSceneLoaded;
-   
+
 
     }
+
+    void Start()
+    {
+        player.SetLevel(GetCurrentLevel());
+                CharacterMenu.instance.UpdateMenu();
+
+    }
+
+
 
      public void Exit()
     {
@@ -148,15 +157,15 @@ public class GameManager : MonoBehaviour
         experience = int.Parse(data[2]);
         //weapon.weaponLevel = int.Parse(data[3]);
         weapon.SetWeaponLevel(int.Parse(data[3]));
-        if(GetCurrentLevel()!=1)
+        /*if(GetCurrentLevel()!=1)
         {
             player.SetLevel(GetCurrentLevel());
-        }
+        }*/
         //player.SetLevel(GetCurrentLevel());
 
         
         
-        //Debug.Log("Load");
+        Debug.Log("Level" + GetCurrentLevel());
 
     }
 

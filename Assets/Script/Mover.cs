@@ -13,8 +13,6 @@ public abstract class Mover : Fighter
 
     public float ySpeed = 0.75f;
     public float xSpeed = 1f;
-    private bool isMoving = false;
-private Vector3 targetPosition;
 
     protected virtual void Start()
     {
@@ -28,68 +26,6 @@ private Vector3 targetPosition;
 
     }
 
-public virtual void MoveTo(Vector3 clickPosition)
-{
-    // Establecer la posición objetivo a la que el jugador debe moverse
-    targetPosition = clickPosition;
-    isMoving = true;
-}
-void Update()
-{
-    if (isMoving)
-    {
-        // Llamar a la función para mover al jugador hacia la posición objetivo
-        MoveTowardsTarget();
-    }
-}
-
-    private void MoveTowardsTarget()
-    {
-        // Obtenemos la posición actual del jugador
-        Vector3 currentPosition = transform.position;
-
-        // Calculamos la dirección hacia la que nos movemos
-        Vector3 moveDirection = (targetPosition - currentPosition).normalized;
-   float distanceToMove = ySpeed * Time.deltaTime;
-
-    // Usar Physics2D.BoxCast para verificar colisiones en el camino
-    RaycastHit2D hit = Physics2D.Raycast(
-        currentPosition,           // Origen del BoxCast
-                    // Ángulo (para 2D es 0)
-        moveDirection,             // Dirección del movimiento
-        distanceToMove,            // Distancia a verificar
-        LayerMask.GetMask("Blocking") // Capa de objetos bloqueantes
-    );
-
-    // Si hay colisión, mover al borde del obstáculo
-    if (hit.collider != null)
-    {
-        // Moverse hasta el punto más cercano al obstáculo
-        transform.position = Vector3.MoveTowards(currentPosition, hit.point, distanceToMove);
-    }
-    else
-    {
-        // Si no hay colisión, mover al objetivo
-        transform.position = Vector3.MoveTowards(currentPosition, targetPosition, distanceToMove);
-    }
-
-        // Cambiar la dirección del sprite en función de hacia dónde nos estamos moviendo
-        if (moveDirection.x > 0)
-        {
-            transform.localScale = originalSize; // Mover a la derecha
-        }
-        else if (moveDirection.x < 0)
-        {
-            transform.localScale = new Vector3(originalSize.x * -1, originalSize.y, originalSize.z); // Mover a la izquierda
-        }
-
-        // Comprobar si hemos llegado al objetivo
-        if (Vector3.Distance(currentPosition, targetPosition) < 0.1f)
-        {
-            // Hemos llegado a la posición objetivo, dejar de movernos
-            isMoving = false;
-        }
-    }
 
     public virtual void UpdateMotor(Vector3 input)
     {
