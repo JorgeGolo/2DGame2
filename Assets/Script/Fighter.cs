@@ -33,7 +33,7 @@ public class Fighter : MonoBehaviour
                 dmg.damageAmount.ToString(),
                 20,
                 Color.red,
-                transform.position,
+                transform.position + new Vector3(0,0.12f,0),
                 Vector3.up,
                 0.5f
             );

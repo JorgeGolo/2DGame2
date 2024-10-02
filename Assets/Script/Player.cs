@@ -108,7 +108,7 @@ public class Player : Mover
                 "+" + healingAmount.ToString() + " hp",
                 15,
                 Color.green,
-                transform.position,
+                transform.position + new Vector3(0,0.12f,0),
                 Vector3.up *30,
                 1f
             );

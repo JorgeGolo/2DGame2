@@ -7071,6 +7071,7 @@ MonoBehaviour:
   outterCircle: {fileID: 165892746}
   canvas: {fileID: 970864476}
   joystickMaxRange: 35
+  attackButton: {fileID: 1884053405}
 --- !u!1 &1310629105
 GameObject:
   m_ObjectHideFlags: 0
