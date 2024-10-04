@@ -24,7 +24,7 @@ public class NPCTextPerson : Collidable
             lastShout = Time.time;
             GameManager.instance.ShowText(
                 message,
-                20,
+                FloatingTextManager.instance.floatingTextSize,
                 Color.white,
                 transform.localPosition + new Vector3(0,0.16f,0),
                 //transform.position + Vector3.up,

@@ -101,7 +101,7 @@ public class Enemy : Mover
         GameManager.instance.GrantXP(xpValue);
         GameManager.instance.ShowText(
             "+" + xpValue + " xp",
-            20,
+            FloatingTextManager.instance.floatingTextSize,
             Color.magenta,
             transform.position,
             Vector3.up*40,

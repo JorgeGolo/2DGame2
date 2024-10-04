@@ -106,7 +106,7 @@ public class Player : Mover
 
             GameManager.instance.ShowText(
                 "+" + healingAmount.ToString() + " hp",
-                15,
+                FloatingTextManager.instance.floatingTextSize,
                 Color.green,
                 transform.position + new Vector3(0,0.12f,0),
                 Vector3.up *30,

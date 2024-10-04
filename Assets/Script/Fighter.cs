@@ -31,7 +31,7 @@ public class Fighter : MonoBehaviour
             //visual damage
             GameManager.instance.ShowText(
                 dmg.damageAmount.ToString(),
-                20,
+                FloatingTextManager.instance.floatingTextSize,
                 Color.red,
                 transform.position + new Vector3(0,0.12f,0),
                 Vector3.up,

@@ -11,6 +11,8 @@ public class FloatingTextManager : MonoBehaviour
     public GameObject textPrefab;
     private List<FloatingText> floatingTexts = new List<FloatingText>();
 
+    public int floatingTextSize = 27;
+
     private void Start()
     {
         if(FloatingTextManager.instance != null)
