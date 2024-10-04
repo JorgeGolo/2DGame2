@@ -7071,8 +7071,6 @@ MonoBehaviour:
   outterCircle: {fileID: 165892746}
   canvas: {fileID: 970864476}
   joystickMaxRange: 35
-  attackButton: {fileID: 1884053405}
-  attackButtonRect: {fileID: 1884053404}
 --- !u!1 &1310629105
 GameObject:
   m_ObjectHideFlags: 0
@@ -29681,6 +29679,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textContainer: {fileID: 1694039653}
   textPrefab: {fileID: 8221915024379340550, guid: 708525a9e7d64fa408a44d6c5381a496, type: 3}
+  floatingTextSize: 27
 --- !u!114 &1694039655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29782,7 +29781,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!225 &1695371543
 CanvasGroup:
   m_ObjectHideFlags: 0

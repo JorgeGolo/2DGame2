@@ -67,7 +67,18 @@ public class GameManager : MonoBehaviour
 
      public void Exit()
     {
-        Application.Quit();
+        #if UNITY_EDITOR
+            // Detener el juego si está en el editor de Unity
+            UnityEditor.EditorApplication.isPlaying = false;
+        #elif UNITY_ANDROID
+            // Cierra la aplicación completamente en Android
+            AndroidJavaObject activity = new AndroidJavaObject("com.unity3d.player.UnityPlayer");
+            AndroidJavaObject context = activity.GetStatic<AndroidJavaObject>("currentActivity");
+            context.Call("finish");
+        #else
+            // Cierra la aplicación en plataformas de escritorio
+            Application.Quit();
+        #endif
     }
 
     public void ToggleButtonMenu()
@@ -165,7 +176,7 @@ public class GameManager : MonoBehaviour
 
         
         
-        Debug.Log("Level" + GetCurrentLevel());
+        //Debug.Log("Level" + GetCurrentLevel());
 
     }
 
