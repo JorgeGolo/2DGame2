@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Enemy : Mover
 {
@@ -22,6 +23,12 @@ public class Enemy : Mover
     // we can not heritate from collide
     private Collider2D[] hits = new Collider2D[10];
 
+    // state enemys
+
+    public bool isAlive = true;
+        // Nombre de la escena donde está el enemigo
+    public string sceneName;
+
 
    /*private void Awake()
     {
@@ -35,12 +42,15 @@ public class Enemy : Mover
 
     protected override void Start()
     {
+
+
         base.Start();
         playerTransform = GameManager.instance.player.transform;
         startingPosition = transform.position;
         // el hitbox es el sprite - go hijo del enemy...
         hitbox = transform.GetChild(0).GetComponent<BoxCollider2D>();
-
+        // Asignar el nombre de la escena
+        sceneName = SceneManager.GetActiveScene().name;
     }
 
     private void FixedUpdate()
@@ -64,39 +74,49 @@ public class Enemy : Mover
             else
             {
                 UpdateMotor(startingPosition - transform.position);
+                RandomMovement();
             }
         }
         else
         {
             UpdateMotor(startingPosition - transform.position);
             chasing = false;
+            
         }
 
-    // chacking
+        // chacking
+        
 
-    collidingWithPlayer = false;
-    // uopdate from Collidable
+        collidingWithPlayer = false;
+        // uopdate from Collidable
 
-    hitbox.OverlapCollider(filter, hits);
-    for (int i = 0; i < hits.Length; i++)
-    {
-        if(hits[i] == null)
-            continue;
-
-        //OnCollide(hits[i]);
-        if (hits[i].tag == "fighter" && hits[i].name == "Player")
+        hitbox.OverlapCollider(filter, hits);
+        for (int i = 0; i < hits.Length; i++)
         {
-            collidingWithPlayer = true;
-        }
+            if(hits[i] == null)
+                continue;
 
-        hits[i] = null;
-     }
+            //OnCollide(hits[i]);
+            if (hits[i].tag == "fighter" && hits[i].name == "Player")
+            {
+                collidingWithPlayer = true;
+            }
+
+            hits[i] = null;
+        }
+    }
+
+    private void RandomMovement()
+    {
+        //Debug.Log("random mov.");
     }
 
     protected override void Death()
     {
         //base.Death();
-        Destroy(gameObject);
+        //Destroy(gameObject);
+        gameObject.SetActive(false);
+        isAlive = false;
         //GameManager.instance.experience += xpValue;
         GameManager.instance.GrantXP(xpValue);
         GameManager.instance.ShowText(

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -32,7 +33,6 @@ public class GameManager : MonoBehaviour
     public int coins;
     public int experience;
 
-    
 
 
     private void Awake()
@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
         instance = this;
         
           // to start with no data
-        // PlayerPrefs.DeleteAll();   
+        PlayerPrefs.DeleteAll();   
 
         DontDestroyOnLoad(gameObject);
 
@@ -59,13 +59,13 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         player.SetLevel(GetCurrentLevel());
-                CharacterMenu.instance.UpdateMenu();
+        CharacterMenu.instance.UpdateMenu();
 
     }
 
 
 
-     public void Exit()
+    public void Exit()
     {
         #if UNITY_EDITOR
             // Detener el juego si está en el editor de Unity
@@ -138,6 +138,7 @@ public class GameManager : MonoBehaviour
     public void SaveState()
     {
 
+
         //Debug.Log("Save");
 
         string es = "";
@@ -149,6 +150,9 @@ public class GameManager : MonoBehaviour
 
         PlayerPrefs.SetString("SaveState", es);
     }
+
+ 
+
 
     public void LoadState(Scene s, LoadSceneMode mode)
     {
@@ -162,22 +166,12 @@ public class GameManager : MonoBehaviour
 
         // this time diferent ''
         string[] data = PlayerPrefs.GetString("SaveState").Split('|');
-        // "0|10|15" -> 
 
         coins = int.Parse(data[1]);
         experience = int.Parse(data[2]);
-        //weapon.weaponLevel = int.Parse(data[3]);
+
         weapon.SetWeaponLevel(int.Parse(data[3]));
-        /*if(GetCurrentLevel()!=1)
-        {
-            player.SetLevel(GetCurrentLevel());
-        }*/
-        //player.SetLevel(GetCurrentLevel());
-
-        
-        
-        //Debug.Log("Level" + GetCurrentLevel());
-
+ 
     }
 
     private void Update()
