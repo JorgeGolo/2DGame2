@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Build.Content;
+using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -33,7 +33,11 @@ public class GameManager : MonoBehaviour
     public int coins;
     public int experience;
 
+    // saving to JSON
 
+    public GameData gameData = new GameData();
+
+    public string archivoDeGuardado;
 
     private void Awake()
     {
@@ -45,12 +49,15 @@ public class GameManager : MonoBehaviour
 
         instance = this;
         
+        archivoDeGuardado = Application.dataPath + "datosJuego.json";
+
+
           // to start with no data
         PlayerPrefs.DeleteAll();   
 
         DontDestroyOnLoad(gameObject);
 
-        SceneManager.sceneLoaded += LoadState;
+        //SceneManager.sceneLoaded += LoadState;
         SceneManager.sceneLoaded += OnSceneLoaded;
 
 
@@ -67,10 +74,8 @@ public class GameManager : MonoBehaviour
 
     public void Exit()
     {
-        #if UNITY_EDITOR
-            // Detener el juego si está en el editor de Unity
-            UnityEditor.EditorApplication.isPlaying = false;
-        #elif UNITY_ANDROID
+
+        #if UNITY_ANDROID
             // Cierra la aplicación completamente en Android
             AndroidJavaObject activity = new AndroidJavaObject("com.unity3d.player.UnityPlayer");
             AndroidJavaObject context = activity.GetStatic<AndroidJavaObject>("currentActivity");
@@ -174,9 +179,65 @@ public class GameManager : MonoBehaviour
  
     }
 
+    public void GuardarDatos()
+    {
+        // Asigna los valores actuales a GameData
+        gameData.coins = coins; // Suponiendo que tienes una variable coins en GameManager
+        gameData.experience = experience; // Suponiendo que tienes una variable experience
+        gameData.weaponLevel = weapon.weaponLevel; // Suponiendo que tienes un objeto weapon en GameManager
+        gameData.hitpoint = player.hitpoint;
+        gameData.maxHitPoint = player.maxHitPoint;
+        // Serializa el estado del juego a JSON
+        string json = JsonUtility.ToJson(gameData, true);
+
+        // Guarda el JSON en un archivo
+        File.WriteAllText(archivoDeGuardado, json);
+
+        Debug.Log("Partida guardada." + gameData.hitpoint);
+    }
+
+    private void CargarDatos()
+    {
+        // Verifica si el archivo existe
+        if (File.Exists(archivoDeGuardado))
+        {
+            // Lee el contenido del archivo JSON
+            string json = File.ReadAllText(archivoDeGuardado);
+
+            // Deserializa el estado del juego
+            gameData = JsonUtility.FromJson<GameData>(json);
+
+            // Restaura los datos del jugador
+            coins = gameData.coins;
+            experience = gameData.experience;
+            weapon.SetWeaponLevel(gameData.weaponLevel);
+            player.hitpoint = gameData.hitpoint;
+            player.maxHitPoint = gameData.maxHitPoint;   
+
+            Debug.Log("Partida cargada.");
+        }
+        else
+        {
+            Debug.LogWarning("No se encontró el archivo de guardado.");
+        }
+        CharacterMenu.instance.UpdateMenu();
+        OnHitPointChange();
+    }
+
     private void Update()
     {
-        //Debug.Log(GetCurrentLevel());
+    // Guardar la partida cuando se presiona F5
+        if (Input.GetKeyDown(KeyCode.F5))
+        {
+            //Debug.Log("Partida guardada");
+            GuardarDatos();
+        }
+
+        // Cargar la partida cuando se presiona F6
+        if (Input.GetKeyDown(KeyCode.F6))
+        {
+            CargarDatos();
+        }
     }
 
     public int GetXpToLovel(int level)

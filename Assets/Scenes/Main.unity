@@ -3886,6 +3886,11 @@ MonoBehaviour:
   pad: {fileID: 1213186678}
   coins: 0
   experience: 0
+  gameData:
+    coins: 0
+    experience: 0
+    weaponLevel: 0
+  archivoDeGuardado: datosjuego
 --- !u!4 &794989894
 Transform:
   m_ObjectHideFlags: 0

@@ -21,7 +21,8 @@ public class Portal : Collidable
             //GameManager.instance.SaveState();
             string sceneName = sceneNames[Random.Range(0,sceneNames.Length)];
 
-            GameManager.instance.SaveState();
+            //GameManager.instance.SaveState();
+            GameManager.instance.GuardarDatos();
 
             SceneManager.LoadScene(sceneName);
         }
