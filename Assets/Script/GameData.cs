@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class GameData
 {
+    public string currentScene;
     public int coins;
     public int experience;
     public int weaponLevel;

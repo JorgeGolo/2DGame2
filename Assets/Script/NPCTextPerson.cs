@@ -26,7 +26,7 @@ public class NPCTextPerson : Collidable
                 message,
                 FloatingTextManager.instance.floatingTextSize,
                 Color.white,
-                transform.localPosition + new Vector3(0,0.16f,0),
+                transform.position + new Vector3(0,0.16f,0),
                 //transform.position + Vector3.up,
                 Vector3.zero,
                 cooldown

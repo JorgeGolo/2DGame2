@@ -82,6 +82,7 @@ public class GameManager : MonoBehaviour
             context.Call("finish");
         #else
             // Cierra la aplicación en plataformas de escritorio
+            GuardarDatos();
             Application.Quit();
         #endif
     }
@@ -132,7 +133,8 @@ public class GameManager : MonoBehaviour
     public void Respawn()
     {
         defMenuAnimator.SetTrigger("hide");
-        SceneManager.LoadScene("Main");
+        
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         player.Respawn();
     }
 
@@ -182,6 +184,7 @@ public class GameManager : MonoBehaviour
     public void GuardarDatos()
     {
         // Asigna los valores actuales a GameData
+        gameData.currentScene = SceneManager.GetActiveScene().name;
         gameData.coins = coins; // Suponiendo que tienes una variable coins en GameManager
         gameData.experience = experience; // Suponiendo que tienes una variable experience
         gameData.weaponLevel = weapon.weaponLevel; // Suponiendo que tienes un objeto weapon en GameManager
@@ -201,6 +204,8 @@ public class GameManager : MonoBehaviour
         // Verifica si el archivo existe
         if (File.Exists(archivoDeGuardado))
         {
+            SceneManager.LoadScene(gameData.currentScene);
+
             // Lee el contenido del archivo JSON
             string json = File.ReadAllText(archivoDeGuardado);
 
@@ -208,11 +213,13 @@ public class GameManager : MonoBehaviour
             gameData = JsonUtility.FromJson<GameData>(json);
 
             // Restaura los datos del jugador
+
             coins = gameData.coins;
             experience = gameData.experience;
             weapon.SetWeaponLevel(gameData.weaponLevel);
             player.hitpoint = gameData.hitpoint;
             player.maxHitPoint = gameData.maxHitPoint;   
+
 
             Debug.Log("Partida cargada.");
         }

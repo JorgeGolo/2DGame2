@@ -89,4 +89,66 @@ public abstract class Mover : Fighter
     
     }
 
+    public virtual void UpdateMotor(Vector3 input, float xspeed)
+    {
+        
+        // Reset moveDelta
+        //moveDelta = new Vector3(x,y,0);
+        //moveDelta = input;
+        moveDelta = new Vector3(input.x * xspeed,input.y * xspeed,0);
+       
+        // sprite direction, throught localScale
+        if (moveDelta.x > 0)
+        {
+            //transform.localScale = Vector3.one;
+            transform.localScale = originalSize;
+        }
+        else if (moveDelta.x < 0)
+        {
+            transform.localScale = new Vector3(originalSize.x * -1, originalSize.y, originalSize.z);
+        }
+
+
+        // add push vector if any
+        moveDelta += pushDirection;
+
+        // reduce the push force every frame
+        // base off the recovery speed
+
+        pushDirection = Vector3.Lerp(pushDirection,Vector3.zero,pushRecoverySpeed);
+
+
+        // Make sure we can move in this direction by casting a box there
+        hit = Physics2D.BoxCast(
+            transform.position, 
+            boxcollider.size, 0, 
+            new Vector2(0,moveDelta.y), 
+            Math.Abs(moveDelta.y * Time.deltaTime), 
+            LayerMask.GetMask("Actor", "Blocking")
+        );
+
+        if (hit.collider == null)
+        {
+            // Moving
+            //transform.Translate(moveDelta * Time.deltaTime);
+            transform.Translate(0,moveDelta.y * Time.deltaTime, 0);
+        }
+        hit = Physics2D.BoxCast(
+            transform.position, 
+            boxcollider.size, 0, 
+            new Vector2(moveDelta.x,0), 
+            Math.Abs(moveDelta.x * Time.deltaTime), 
+            LayerMask.GetMask("Actor", "Blocking")
+        );
+
+        if (hit.collider == null)
+        {
+            // Moving
+            //transform.Translate(moveDelta * Time.deltaTime);
+            transform.Translate(moveDelta.x * Time.deltaTime, 0, 0);
+        }
+        
+    
+    }
+
 }

@@ -1,7 +1,8 @@
 {
-    "coins": 37,
-    "experience": 3,
-    "weaponLevel": 1,
-    "hitpoint": 8,
+    "currentScene": "Main",
+    "coins": 0,
+    "experience": 0,
+    "weaponLevel": 0,
+    "hitpoint": 11,
     "maxHitPoint": 11
 }

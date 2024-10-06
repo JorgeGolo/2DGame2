@@ -752,6 +752,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2468584736691504630, guid: e2baa6e6487f24642960e8cc4af77606, type: 3}
+      propertyPath: xSpeed
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2468584736691504630, guid: e2baa6e6487f24642960e8cc4af77606, type: 3}
+      propertyPath: ySpeed
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2468584736691504630, guid: e2baa6e6487f24642960e8cc4af77606, type: 3}
+      propertyPath: speedRandom
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 2468584736691504630, guid: e2baa6e6487f24642960e8cc4af77606, type: 3}
+      propertyPath: randomMovementLenght
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5808244163376924276, guid: e2baa6e6487f24642960e8cc4af77606, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.7070688
@@ -3887,9 +3903,12 @@ MonoBehaviour:
   coins: 0
   experience: 0
   gameData:
+    currentScene: 
     coins: 0
     experience: 0
     weaponLevel: 0
+    hitpoint: 0
+    maxHitPoint: 0
   archivoDeGuardado: datosjuego
 --- !u!4 &794989894
 Transform:
@@ -30612,7 +30631,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!225 &1695371543
 CanvasGroup:
   m_ObjectHideFlags: 0

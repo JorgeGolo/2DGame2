@@ -229,6 +229,10 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
+  isAlive: 1
+  sceneName: 
+  randomMovementLenght: 0.5
+  speedRandom: 0.3
 --- !u!212 &7592251662780732221
 SpriteRenderer:
   m_ObjectHideFlags: 0

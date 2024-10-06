@@ -209,6 +209,8 @@ MonoBehaviour:
   hitpoint: 1
   maxHitPoint: 1
   pushRecoverySpeed: 0.1
+  ySpeed: 0.5
+  xSpeed: 0.8
   xpValue: 1
   triggerLenght: 0.4
   chaseLenght: 3
@@ -227,6 +229,10 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
+  isAlive: 1
+  sceneName: 
+  randomMovementLenght: 1
+  speedRandom: 0.05
 --- !u!212 &2331526416035556981
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -266,7 +272,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1235441447
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 328550561, guid: 66dd0b925587f034da1ff1bef84280e1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
