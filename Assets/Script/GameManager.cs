@@ -39,6 +39,10 @@ public class GameManager : MonoBehaviour
 
     public string archivoDeGuardado;
 
+    // portal manager
+
+    public PortalManager portalManager;
+
     private void Awake()
     {
         if(GameManager.instance != null)
@@ -49,7 +53,8 @@ public class GameManager : MonoBehaviour
 
         instance = this;
         
-        archivoDeGuardado = Application.dataPath + "datosJuego.json";
+        //archivoDeGuardado = Application.dataPath + "datosJuego.json";
+        archivoDeGuardado = Path.Combine(Application.persistentDataPath, "datosJuego.json");
 
 
           // to start with no data
@@ -58,7 +63,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         //SceneManager.sceneLoaded += LoadState;
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        //SceneManager.sceneLoaded += OnSceneLoaded;
 
 
     }
@@ -135,12 +140,13 @@ public class GameManager : MonoBehaviour
         defMenuAnimator.SetTrigger("hide");
         
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        
         player.Respawn();
     }
 
     public void OnSceneLoaded(Scene s, LoadSceneMode mode)
     {
-        player.transform.position = GameObject.Find("Spawn").transform.position;   
+        //player.transform.position = GameObject.Find("Spawn").transform.position;   
     }
     public void SaveState()
     {

@@ -1,6 +1,6 @@
 {
-    "currentScene": "Main",
-    "coins": 0,
+    "currentScene": "Dungeon1",
+    "coins": 5,
     "experience": 0,
     "weaponLevel": 0,
     "hitpoint": 11,
