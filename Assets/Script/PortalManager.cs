@@ -32,7 +32,9 @@ public class PortalManager: MonoBehaviour
         if (leavingScene!= null && leavingScene != "")
         {
             player.transform.position = GameObject.Find(leavingScene).transform.position;   
-        } 
+        }
+
+        GameManager.instance.LoadEnemyData(); 
     }
 
 

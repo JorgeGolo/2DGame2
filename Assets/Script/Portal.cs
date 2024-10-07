@@ -9,7 +9,6 @@ public class Portal : Collidable
     //teleport to a random scene
     public string[] sceneNames;
 
-    public Player player;
     protected override void OnCollide(Collider2D coll)
     {
         //base.OnCollide(coll);
@@ -30,15 +29,10 @@ public class Portal : Collidable
 
 
             //GameManager.instance.SaveState();
-            GameManager.instance.GuardarDatos();
+            GameManager.instance.SaveData();
 
             SceneManager.LoadScene(sceneName);
         }
-    }
-
-    public void OnSceneLoaded(Scene s, LoadSceneMode mode)
-    {
-        player.transform.position = GameObject.Find("Spawn").transform.position;   
     }
 
 }

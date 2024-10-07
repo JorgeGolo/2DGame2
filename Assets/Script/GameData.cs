@@ -10,8 +10,18 @@ public class GameData
     public int coins;
     public int experience;
     public int weaponLevel;
-
     public int hitpoint;
     public int maxHitPoint;
 
+    public List<EnemyData> enemyList;
+
+
+}
+
+[System.Serializable]
+
+public class EnemyData
+{
+    public string name;
+    public bool isAlive;
 }

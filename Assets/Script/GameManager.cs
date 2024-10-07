@@ -54,11 +54,11 @@ public class GameManager : MonoBehaviour
         instance = this;
         
         //archivoDeGuardado = Application.dataPath + "datosJuego.json";
+        
         archivoDeGuardado = Path.Combine(Application.persistentDataPath, "datosJuego.json");
 
-
-          // to start with no data
-        PlayerPrefs.DeleteAll();   
+        // to start with no data
+        // PlayerPrefs.DeleteAll();   
 
         DontDestroyOnLoad(gameObject);
 
@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour
             context.Call("finish");
         #else
             // Cierra la aplicación en plataformas de escritorio
-            GuardarDatos();
+            SaveData();
             Application.Quit();
         #endif
     }
@@ -148,47 +148,37 @@ public class GameManager : MonoBehaviour
     {
         //player.transform.position = GameObject.Find("Spawn").transform.position;   
     }
+
     public void SaveState()
     {
-
-
         //Debug.Log("Save");
-
         string es = "";
-
         es += "0" + "|"; 
         es += coins.ToString() + "|";
         es += experience.ToString() + "|";
         es += weapon.weaponLevel.ToString(); 
-
         PlayerPrefs.SetString("SaveState", es);
     }
-
  
 
 
     public void LoadState(Scene s, LoadSceneMode mode)
     {
-
         SceneManager.sceneLoaded += LoadState;
-
         if(!PlayerPrefs.HasKey("SaveState"))
         {
             return;
         }
-
         // this time diferent ''
         string[] data = PlayerPrefs.GetString("SaveState").Split('|');
-
         coins = int.Parse(data[1]);
         experience = int.Parse(data[2]);
-
         weapon.SetWeaponLevel(int.Parse(data[3]));
- 
-    }
+     }
 
-    public void GuardarDatos()
+    public void SaveData()
     {
+
         // Asigna los valores actuales a GameData
         gameData.currentScene = SceneManager.GetActiveScene().name;
         gameData.coins = coins; // Suponiendo que tienes una variable coins en GameManager
@@ -196,38 +186,53 @@ public class GameManager : MonoBehaviour
         gameData.weaponLevel = weapon.weaponLevel; // Suponiendo que tienes un objeto weapon en GameManager
         gameData.hitpoint = player.hitpoint;
         gameData.maxHitPoint = player.maxHitPoint;
+
+        gameData.enemyList = new List<EnemyData>();
+
+         // Recorremos todos los objetos de la escena (activos e inactivos)
+        foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
+        {
+            // Solo procesamos aquellos que tienen el componente Item
+            Enemy enemy = obj.GetComponent<Enemy>();
+            if (enemy != null)
+            {
+                // Creamos un nuevo objeto DatosItem para almacenar su información
+                EnemyData enemyData = new EnemyData();
+                enemyData.name = enemy.gameObject.name;
+                enemyData.isAlive = enemy.isAlive;
+                // Añadimos a la lista de inventarioItems
+                gameData.enemyList.Add(enemyData);
+            }
+        }
         // Serializa el estado del juego a JSON
         string json = JsonUtility.ToJson(gameData, true);
-
         // Guarda el JSON en un archivo
         File.WriteAllText(archivoDeGuardado, json);
-
         Debug.Log("Partida guardada." + gameData.hitpoint);
+
     }
 
-    private void CargarDatos()
+    public void LoadData()
     {
         // Verifica si el archivo existe
         if (File.Exists(archivoDeGuardado))
         {
             SceneManager.LoadScene(gameData.currentScene);
-
             // Lee el contenido del archivo JSON
             string json = File.ReadAllText(archivoDeGuardado);
-
             // Deserializa el estado del juego
             gameData = JsonUtility.FromJson<GameData>(json);
-
             // Restaura los datos del jugador
-
             coins = gameData.coins;
             experience = gameData.experience;
             weapon.SetWeaponLevel(gameData.weaponLevel);
             player.hitpoint = gameData.hitpoint;
             player.maxHitPoint = gameData.maxHitPoint;   
-
-
             Debug.Log("Partida cargada.");
+
+            // EnemyData
+            LoadEnemyData();
+    
         }
         else
         {
@@ -237,19 +242,35 @@ public class GameManager : MonoBehaviour
         OnHitPointChange();
     }
 
+    public void LoadEnemyData()
+    {        
+        if (File.Exists(archivoDeGuardado))
+        {
+            foreach (EnemyData enemyData in gameData.enemyList)
+            {
+
+            GameObject enemyGO = GameObject.Find(enemyData.name);
+            if (enemyGO != null)
+                {
+                    enemyGO.SetActive(enemyData.isAlive);
+                }
+            }
+        }
+    }
+
     private void Update()
     {
     // Guardar la partida cuando se presiona F5
         if (Input.GetKeyDown(KeyCode.F5))
         {
             //Debug.Log("Partida guardada");
-            GuardarDatos();
+            SaveData();
         }
 
         // Cargar la partida cuando se presiona F6
         if (Input.GetKeyDown(KeyCode.F6))
         {
-            CargarDatos();
+            LoadData();
         }
     }
 
