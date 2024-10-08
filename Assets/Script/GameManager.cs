@@ -55,6 +55,9 @@ public class GameManager : MonoBehaviour
     public GameObject menuButton;
     public GameObject attackButton;
 
+    public Button newGameButton;
+    public Button continueGameButton;
+
 
     private void Awake()
     {
@@ -86,8 +89,9 @@ public class GameManager : MonoBehaviour
         player.SetLevel(GetCurrentLevel());
         CharacterMenu.instance.UpdateMenu();
 
-        SceneManager.sceneLoaded += OnSceneLoaded;
 
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        
     }
 
     public void SetTransparences()
@@ -122,11 +126,36 @@ public class GameManager : MonoBehaviour
 
     public void StartNewGame()
     {
+        if (File.Exists(archivoDeGuardado))
+        {
+            // Borra el archivo de guardado
+            File.Delete(archivoDeGuardado);
+            // Debug.Log("Archivo de guardado eliminado.");
+        }
+
+        // Inicia la coroutine para manejar la animación y la carga de escena
+        StartCoroutine(PlayAnimationAndLoadScene());
+    }
+
+    private IEnumerator PlayAnimationAndLoadScene()
+    {
+        // Dispara el trigger de la animación
+        newGameButton.GetComponent<Animator>().SetTrigger("Pressbutton");
+
+        // Espera hasta que la animación se haya completado (ajusta según la duración de tu animación)
+        yield return new WaitForSeconds(1f); // Ajusta el tiempo de espera según la duración de tu animación
+
+        // Ahora carga la escena principal
         SceneManager.LoadScene("Main");
     }
 
-    public void ContinueGame()
+    private IEnumerator ContinueAnimationAndLoadScene()
     {
+        // Dispara el trigger de la animación
+        continueGameButton.GetComponent<Animator>().SetTrigger("Pressbutton");
+
+        // Espera hasta que la animación se haya completado (ajusta según la duración de tu animación)
+        yield return new WaitForSeconds(1f); // Ajusta el tiempo de espera según la duración de tu animación
         if (File.Exists(archivoDeGuardado))
         {
             LoadData();
@@ -136,6 +165,13 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("No se encontró un archivo de guardado. No se puede continuar el juego.");
             // Opcional: Redirigir a otra escena o mostrar un mensaje en la interfaz de usuario
         }
+ 
+    }
+
+    public void ContinueGame()
+    {
+        StartCoroutine(ContinueAnimationAndLoadScene());
+
     }
 
 
@@ -212,6 +248,14 @@ public class GameManager : MonoBehaviour
     {
         //player.transform.position = GameObject.Find("Spawn").transform.position;   
         SetTransparences();
+        if (SceneManager.GetActiveScene().name == "Main0")
+        {
+            if (continueGameButton != null && !File.Exists(archivoDeGuardado))
+            {
+                continueGameButton.interactable = false; // Si es un botón de UI
+                // desactivar botón
+            }
+        }
     }
 
     public void SaveData()
