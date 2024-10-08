@@ -2,8 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -43,6 +45,17 @@ public class GameManager : MonoBehaviour
 
     public PortalManager portalManager;
 
+    // menu references to hide on main0
+
+    public GameObject outercircle;
+    public GameObject innercircle;
+    public GameObject healthbar1;
+    public GameObject healthbar2;
+
+    public GameObject menuButton;
+    public GameObject attackButton;
+
+
     private void Awake()
     {
         if(GameManager.instance != null)
@@ -66,13 +79,63 @@ public class GameManager : MonoBehaviour
         //SceneManager.sceneLoaded += OnSceneLoaded;
 
 
-    }
+ 
 
+    }
     void Start()
     {
         player.SetLevel(GetCurrentLevel());
         CharacterMenu.instance.UpdateMenu();
 
+
+    }
+
+    public void SetTransparences()
+    {
+       if (SceneManager.GetActiveScene().name == "Main0")
+        {
+            // Establecer el color transparente (RGBA: 1, 1, 1, 0) => Transparente
+            player.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0f);
+            weapon.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0f);
+            innercircle.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0f);
+            outercircle.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0f);
+            healthbar1.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0f);
+            healthbar2.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0f);
+            menuButton.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0f);
+            attackButton.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0f);
+
+        }
+        else 
+        {
+            // Establecer el color blanco (RGBA: 1, 1, 1, 1) => Blanco opaco
+            player.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+            weapon.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+            innercircle.GetComponent<Image>().color = new Color(1f, 1f, 1f, 206f / 255f);
+            outercircle.GetComponent<Image>().color = new Color(1f, 1f, 1f, 206f / 255f);
+            healthbar1.GetComponent<Image>().color = new Color(137f / 255f, 11f/255f, 11f/255f, 1f);
+            healthbar2.GetComponent<Image>().color = new Color(217f / 255f, 48f / 255f, 48f / 255f, 1f);
+            menuButton.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
+            attackButton.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
+
+        }
+    }
+
+    public void StartNewGame()
+    {
+        SceneManager.LoadScene("Main");
+    }
+
+    public void ContinueGame()
+    {
+        if (File.Exists(archivoDeGuardado))
+        {
+            LoadData();
+        }
+        else
+        {
+            Debug.LogWarning("No se encontró un archivo de guardado. No se puede continuar el juego.");
+            // Opcional: Redirigir a otra escena o mostrar un mensaje en la interfaz de usuario
+        }
     }
 
 
@@ -82,6 +145,7 @@ public class GameManager : MonoBehaviour
 
         #if UNITY_ANDROID
             // Cierra la aplicación completamente en Android
+            SaveData();
             AndroidJavaObject activity = new AndroidJavaObject("com.unity3d.player.UnityPlayer");
             AndroidJavaObject context = activity.GetStatic<AndroidJavaObject>("currentActivity");
             context.Call("finish");
@@ -147,34 +211,8 @@ public class GameManager : MonoBehaviour
     public void OnSceneLoaded(Scene s, LoadSceneMode mode)
     {
         //player.transform.position = GameObject.Find("Spawn").transform.position;   
+        SetTransparences();
     }
-
-    public void SaveState()
-    {
-        //Debug.Log("Save");
-        string es = "";
-        es += "0" + "|"; 
-        es += coins.ToString() + "|";
-        es += experience.ToString() + "|";
-        es += weapon.weaponLevel.ToString(); 
-        PlayerPrefs.SetString("SaveState", es);
-    }
- 
-
-
-    public void LoadState(Scene s, LoadSceneMode mode)
-    {
-        SceneManager.sceneLoaded += LoadState;
-        if(!PlayerPrefs.HasKey("SaveState"))
-        {
-            return;
-        }
-        // this time diferent ''
-        string[] data = PlayerPrefs.GetString("SaveState").Split('|');
-        coins = int.Parse(data[1]);
-        experience = int.Parse(data[2]);
-        weapon.SetWeaponLevel(int.Parse(data[3]));
-     }
 
     public void SaveData()
     {
@@ -186,11 +224,12 @@ public class GameManager : MonoBehaviour
         gameData.weaponLevel = weapon.weaponLevel; // Suponiendo que tienes un objeto weapon en GameManager
         gameData.hitpoint = player.hitpoint;
         gameData.maxHitPoint = player.maxHitPoint;
+        //gameData.posicionRespawn =  player.transform.position;
 
-        gameData.enemyList = new List<EnemyData>();
+        SaveEnemyData();
 
          // Recorremos todos los objetos de la escena (activos e inactivos)
-        foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
+        /*foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
         {
             // Solo procesamos aquellos que tienen el componente Item
             Enemy enemy = obj.GetComponent<Enemy>();
@@ -204,11 +243,12 @@ public class GameManager : MonoBehaviour
                 gameData.enemyList.Add(enemyData);
             }
         }
+        */
         // Serializa el estado del juego a JSON
         string json = JsonUtility.ToJson(gameData, true);
         // Guarda el JSON en un archivo
         File.WriteAllText(archivoDeGuardado, json);
-        Debug.Log("Partida guardada." + gameData.hitpoint);
+        //Debug.Log("Partida guardada." + gameData.hitpoint);
 
     }
 
@@ -216,45 +256,106 @@ public class GameManager : MonoBehaviour
     {
         // Verifica si el archivo existe
         if (File.Exists(archivoDeGuardado))
-        {
-            SceneManager.LoadScene(gameData.currentScene);
+        {        
             // Lee el contenido del archivo JSON
             string json = File.ReadAllText(archivoDeGuardado);
             // Deserializa el estado del juego
             gameData = JsonUtility.FromJson<GameData>(json);
-            // Restaura los datos del jugador
-            coins = gameData.coins;
-            experience = gameData.experience;
-            weapon.SetWeaponLevel(gameData.weaponLevel);
-            player.hitpoint = gameData.hitpoint;
-            player.maxHitPoint = gameData.maxHitPoint;   
-            Debug.Log("Partida cargada.");
+            
+            // Asigna la escena que se cargará
+            string sceneToLoad = gameData.currentScene;
 
-            // EnemyData
-            LoadEnemyData();
-    
+            // Cargar la escena y esperar a que se complete
+            StartCoroutine(LoadSceneAndRestoreData(sceneToLoad));
         }
         else
         {
             Debug.LogWarning("No se encontró el archivo de guardado.");
         }
+    }
+
+    private IEnumerator LoadSceneAndRestoreData(string sceneToLoad)
+    {
+        // Cargar la nueva escena
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneToLoad);
+
+        // Esperar hasta que la carga de la escena haya finalizado
+        while (!asyncLoad.isDone)
+        {
+            yield return null; // Esperar hasta el siguiente frame
+        }
+
+        // Ahora que la escena está cargada, restaurar los datos del jugador
+        RestorePlayerData();
+    }
+
+    private void RestorePlayerData()
+    {
+        // Restaurar los datos del jugador
+        coins = gameData.coins;
+        experience = gameData.experience;
+        weapon.SetWeaponLevel(gameData.weaponLevel);
+        player.hitpoint = gameData.hitpoint;
+        player.maxHitPoint = gameData.maxHitPoint;   
+        //Debug.Log("Partida cargada.");
+
+        // Llevar al player a la posición del objeto con el tag "ContinuePoint"
+        GameObject continuePoint = GameObject.FindWithTag("continuepoint");
+        if (continuePoint != null)
+        {
+            player.transform.position = continuePoint.transform.position; // Mover al jugador a la posición del continuePoint
+        }
+        else
+        {
+            Debug.LogWarning("No se encontró el objeto con el tag 'ContinuePoint'. Asegúrate de que está en la escena.");
+            // Puedes optar por usar una posición de respawn predeterminada aquí, si lo deseas
+        }
+        // Cargar enemigos
+        LoadEnemyData();
+
+        // Actualizar el menú y los puntos de vida
         CharacterMenu.instance.UpdateMenu();
         OnHitPointChange();
     }
-
     public void LoadEnemyData()
+    {        
+
+            GameObject[] allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
+
+            foreach (EnemyData enemyData in gameData.enemyList)
+            {
+                foreach (GameObject obj in allObjects) 
+                {
+                    if (obj.GetComponent<Enemy>() && obj.name == enemyData.name)
+                    {
+                        obj.SetActive(enemyData.isAlive);
+                    }
+                }
+            }
+        
+    }
+
+    
+    public void SaveEnemyData()
     {        
         if (File.Exists(archivoDeGuardado))
         {
-            foreach (EnemyData enemyData in gameData.enemyList)
-            {
+            GameObject[] allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
+            gameData.enemyList = new List<EnemyData>();
 
-            GameObject enemyGO = GameObject.Find(enemyData.name);
-            if (enemyGO != null)
+                foreach (GameObject obj in allObjects) 
                 {
-                    enemyGO.SetActive(enemyData.isAlive);
+                    if (obj.GetComponent<Enemy>())
+                    {
+                        EnemyData enemyData = new EnemyData();
+
+                        enemyData.name = obj.name;
+                        enemyData.isAlive = obj.GetComponent<Enemy>().isAlive;
+                        // Añadimos a la lista de inventarioItems   
+                        gameData.enemyList.Add(enemyData);
+                    }
                 }
-            }
+            
         }
     }
 

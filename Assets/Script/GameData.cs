@@ -13,6 +13,8 @@ public class GameData
     public int hitpoint;
     public int maxHitPoint;
 
+    public Vector3 posicionRespawn;
+
     public List<EnemyData> enemyList;
 
 

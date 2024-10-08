@@ -21534,8 +21534,15 @@ MonoBehaviour:
     weaponLevel: 0
     hitpoint: 0
     maxHitPoint: 0
+    enemyList: []
   archivoDeGuardado: 
   portalManager: {fileID: 0}
+  outercircle: {fileID: 0}
+  innercircle: {fileID: 0}
+  healthbar1: {fileID: 0}
+  healthbar2: {fileID: 0}
+  menuButton: {fileID: 0}
+  attackButton: {fileID: 0}
 --- !u!4 &735101424
 Transform:
   m_ObjectHideFlags: 0
@@ -24795,7 +24802,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3255525614722007674, guid: a2dc33f7267a0d0489f2af0a0424c22f, type: 3}
       propertyPath: m_Name
-      value: Portal
+      value: PortalContinue
       objectReference: {fileID: 0}
     - target: {fileID: 5294798844592213816, guid: a2dc33f7267a0d0489f2af0a0424c22f, type: 3}
       propertyPath: sceneNames.Array.size
@@ -24905,7 +24912,7 @@ GameObject:
   - component: {fileID: 1606889923}
   m_Layer: 0
   m_Name: Main
-  m_TagString: Untagged
+  m_TagString: continuepoint
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
