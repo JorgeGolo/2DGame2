@@ -78,7 +78,6 @@ public class GameManager : MonoBehaviour
         //SceneManager.sceneLoaded += LoadState;
         //SceneManager.sceneLoaded += OnSceneLoaded;
 
-
  
 
     }
@@ -87,6 +86,7 @@ public class GameManager : MonoBehaviour
         player.SetLevel(GetCurrentLevel());
         CharacterMenu.instance.UpdateMenu();
 
+        //SetTransparences();
 
     }
 
@@ -211,7 +211,7 @@ public class GameManager : MonoBehaviour
     public void OnSceneLoaded(Scene s, LoadSceneMode mode)
     {
         //player.transform.position = GameObject.Find("Spawn").transform.position;   
-        SetTransparences();
+        //SetTransparences();
     }
 
     public void SaveData()
