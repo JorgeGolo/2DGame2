@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour
         player.SetLevel(GetCurrentLevel());
         CharacterMenu.instance.UpdateMenu();
 
-        //SetTransparences();
+        SceneManager.sceneLoaded += OnSceneLoaded;
 
     }
 
@@ -211,7 +211,7 @@ public class GameManager : MonoBehaviour
     public void OnSceneLoaded(Scene s, LoadSceneMode mode)
     {
         //player.transform.position = GameObject.Find("Spawn").transform.position;   
-        //SetTransparences();
+        SetTransparences();
     }
 
     public void SaveData()
@@ -269,7 +269,7 @@ public class GameManager : MonoBehaviour
             weapon.SetWeaponLevel(gameData.weaponLevel);
             player.hitpoint = gameData.hitpoint;
             player.maxHitPoint = gameData.maxHitPoint;   
-            
+
         //Debug.Log("Partida cargada.");
             // Asigna la escena que se cargará
             string sceneToLoad = gameData.currentScene;

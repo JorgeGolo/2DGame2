@@ -31,6 +31,11 @@ public class CharacterMenu : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    void Start()
+    {
+        GameManager.instance.SetTransparences();
+    }
+
     public void OnArrowClick(bool right)
     {
         if(right)
