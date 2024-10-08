@@ -257,11 +257,20 @@ public class GameManager : MonoBehaviour
         // Verifica si el archivo existe
         if (File.Exists(archivoDeGuardado))
         {        
+
             // Lee el contenido del archivo JSON
             string json = File.ReadAllText(archivoDeGuardado);
             // Deserializa el estado del juego
             gameData = JsonUtility.FromJson<GameData>(json);
+
+             // Restaurar los datos del jugador
+            coins = gameData.coins;
+            experience = gameData.experience;
+            weapon.SetWeaponLevel(gameData.weaponLevel);
+            player.hitpoint = gameData.hitpoint;
+            player.maxHitPoint = gameData.maxHitPoint;   
             
+        //Debug.Log("Partida cargada.");
             // Asigna la escena que se cargará
             string sceneToLoad = gameData.currentScene;
 
@@ -291,13 +300,7 @@ public class GameManager : MonoBehaviour
 
     private void RestorePlayerData()
     {
-        // Restaurar los datos del jugador
-        coins = gameData.coins;
-        experience = gameData.experience;
-        weapon.SetWeaponLevel(gameData.weaponLevel);
-        player.hitpoint = gameData.hitpoint;
-        player.maxHitPoint = gameData.maxHitPoint;   
-        //Debug.Log("Partida cargada.");
+       
 
         // Llevar al player a la posición del objeto con el tag "ContinuePoint"
         GameObject continuePoint = GameObject.FindWithTag("continuepoint");
