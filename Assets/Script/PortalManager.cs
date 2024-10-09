@@ -42,6 +42,8 @@ public class PortalManager: MonoBehaviour
 
             // load enemydata for this scene
             GameManager.instance.LoadEnemyData();
+            GameManager.instance.LoadChestData();
+
         }
         // Quitar el listener una vez que la escena ha sido cargada
     }

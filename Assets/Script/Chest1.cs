@@ -15,6 +15,8 @@ public class Chest1 : Collectable
     public Sprite emptyChest;
     public int coins = 5;
 
+    public bool isEmpty = false;
+
     protected override void OnCollect()
     {
         if(!collected)
@@ -24,6 +26,10 @@ public class Chest1 : Collectable
 
             // change the sprite
             GetComponent<SpriteRenderer>().sprite = emptyChest;
+
+            isEmpty = true;
+
+            GameManager.instance.SaveEmptyChest(gameObject);
             //Debug.Log("coins granted: " + coins);
 
             // not needed, because collected was setted to true, by base.OnCollect

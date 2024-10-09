@@ -16,6 +16,7 @@ public class GameData
     public Vector3 posicionRespawn;
 
     public List<EnemyData> enemyList;
+    public List<ChestData> chestList;
 
 
 }
@@ -26,4 +27,11 @@ public class EnemyData
 {
     public string name;
     public bool isAlive;
+}
+[System.Serializable]
+
+public class ChestData
+{
+    public string name;
+    public bool isEmpty;
 }

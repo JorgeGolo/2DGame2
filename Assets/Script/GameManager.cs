@@ -386,6 +386,31 @@ public class GameManager : MonoBehaviour
         }
     }
 
+        public void LoadChestData()
+    {
+        // Buscar todos los objetos de tipo Enemy en la escena actual
+        Chest1[] allChests = FindObjectsOfType<Chest1>();
+
+        // Iterar sobre los datos de los enemigos guardados en gameData
+        foreach (ChestData chestData in gameData.chestList)
+        {
+            //Debug.Log("Cargando estado de enemigo: " + enemyData.name + " - Vivo: " + enemyData.isAlive);
+
+            // Buscar el enemigo que coincida con el nombre guardado
+            foreach (Chest1 chest in allChests)
+            {
+                if (chest.name == chestData.name)
+                {
+                    // Activar o desactivar el enemigo según su estado guardado
+                    chest.isEmpty=chestData.isEmpty;
+                    chest.GetComponent<SpriteRenderer>().sprite = chest.emptyChest;
+                    //Debug.Log("Enemigo encontrado: " + enemy.name + " - Estado: " + enemyData.isAlive);
+                    break;  // Salir del bucle una vez encontrado el enemigo
+                }
+            }
+        }
+    }
+
     public void SaveEnemyDeath(GameObject obj)
     {
         if (File.Exists(archivoDeGuardado))
@@ -403,6 +428,26 @@ public class GameManager : MonoBehaviour
             };
             
             gameData.enemyList.Add(enemyData);  // Añadir el estado del enemigo a la lista
+        }
+    }
+
+    public void SaveEmptyChest(GameObject obj)
+    {
+        if (File.Exists(archivoDeGuardado))
+        {
+            // Si ya tienes enemigos guardados, asegúrate de que no los sobrescribes
+            if (gameData.chestList == null)
+            {
+                gameData.chestList = new List<ChestData>();
+            }
+            
+            ChestData chestData = new ChestData
+            {
+                name = obj.name,
+                isEmpty = true
+            };
+            
+            gameData.chestList.Add(chestData);  // Añadir el estado del enemigo a la lista
         }
     }
 
