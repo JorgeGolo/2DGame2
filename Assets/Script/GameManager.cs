@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -270,7 +269,7 @@ public class GameManager : MonoBehaviour
         gameData.maxHitPoint = player.maxHitPoint;
         //gameData.posicionRespawn =  player.transform.position;
 
-        SaveEnemyData();
+        //SaveEnemyData();
 
          // Recorremos todos los objetos de la escena (activos e inactivos)
         /*foreach (GameObject obj in Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[])
@@ -357,52 +356,53 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("No se encontró el objeto con el tag 'ContinuePoint'. Asegúrate de que está en la escena.");
             // Puedes optar por usar una posición de respawn predeterminada aquí, si lo deseas
         }
-        // Cargar enemigos
-        LoadEnemyData();
 
         // Actualizar el menú y los puntos de vida
         CharacterMenu.instance.UpdateMenu();
         OnHitPointChange();
     }
     public void LoadEnemyData()
-    {        
+    {
+        // Buscar todos los objetos de tipo Enemy en la escena actual
+        Enemy[] allEnemies = FindObjectsOfType<Enemy>();
 
-            GameObject[] allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
+        // Iterar sobre los datos de los enemigos guardados en gameData
+        foreach (EnemyData enemyData in gameData.enemyList)
+        {
+            //Debug.Log("Cargando estado de enemigo: " + enemyData.name + " - Vivo: " + enemyData.isAlive);
 
-            foreach (EnemyData enemyData in gameData.enemyList)
+            // Buscar el enemigo que coincida con el nombre guardado
+            foreach (Enemy enemy in allEnemies)
             {
-                foreach (GameObject obj in allObjects) 
+                if (enemy.name == enemyData.name)
                 {
-                    if (obj.GetComponent<Enemy>() && obj.name == enemyData.name)
-                    {
-                        obj.SetActive(enemyData.isAlive);
-                    }
+                    // Activar o desactivar el enemigo según su estado guardado
+                    enemy.gameObject.SetActive(enemyData.isAlive);
+                    enemy.isAlive = enemyData.isAlive;
+                    //Debug.Log("Enemigo encontrado: " + enemy.name + " - Estado: " + enemyData.isAlive);
+                    break;  // Salir del bucle una vez encontrado el enemigo
                 }
             }
-        
+        }
     }
 
-    
-    public void SaveEnemyData()
-    {        
+    public void SaveEnemyDeath(GameObject obj)
+    {
         if (File.Exists(archivoDeGuardado))
         {
-            GameObject[] allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
-            gameData.enemyList = new List<EnemyData>();
-
-                foreach (GameObject obj in allObjects) 
-                {
-                    if (obj.GetComponent<Enemy>())
-                    {
-                        EnemyData enemyData = new EnemyData();
-
-                        enemyData.name = obj.name;
-                        enemyData.isAlive = obj.GetComponent<Enemy>().isAlive;
-                        // Añadimos a la lista de inventarioItems   
-                        gameData.enemyList.Add(enemyData);
-                    }
-                }
+            // Si ya tienes enemigos guardados, asegúrate de que no los sobrescribes
+            if (gameData.enemyList == null)
+            {
+                gameData.enemyList = new List<EnemyData>();
+            }
             
+            EnemyData enemyData = new EnemyData
+            {
+                name = obj.name,
+                isAlive = false
+            };
+            
+            gameData.enemyList.Add(enemyData);  // Añadir el estado del enemigo a la lista
         }
     }
 

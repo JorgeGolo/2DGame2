@@ -24,12 +24,10 @@ public class Portal : Collidable
             PortalManager.instance.leavingScene = SceneManager.GetActiveScene().name;
             PortalManager.instance.nextScene = sceneNames[Random.Range(0,sceneNames.Length)];
            
-            //GameManager.instance.SaveState();
             string sceneName = sceneNames[Random.Range(0,sceneNames.Length)];
 
-
-            //GameManager.instance.SaveState();
-            GameManager.instance.SaveData();
+            // saving enemys before leave the scene
+            // GameManager.instance.SaveEnemyData();
 
             SceneManager.LoadScene(sceneName);
         }

@@ -131,6 +131,7 @@ private Vector3 RandomMovement(float randomMovementLenght)
         //base.Death();
         //Destroy(gameObject);
         gameObject.SetActive(false);
+        GameManager.instance.SaveEnemyDeath(gameObject);
         isAlive = false;
         //GameManager.instance.experience += xpValue;
         GameManager.instance.GrantXP(xpValue);

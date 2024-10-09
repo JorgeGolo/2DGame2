@@ -32,14 +32,18 @@ public class PortalManager: MonoBehaviour
         if (leavingScene!= null && leavingScene != "")
         {
             player.transform.position = GameObject.Find(leavingScene).transform.position;   
-            Debug.Log("llevando al jugador al sitio de la carga");
+            //Debug.Log("llevando al jugador al sitio de la carga");
         }
         if (SceneManager.GetActiveScene().name != "Main0")
         {
+            // save all data enterin the scene
             GameManager.instance.SaveData();
-            Debug.Log("Saved");
+            //Debug.Log("Saved");
+
+            // load enemydata for this scene
+            GameManager.instance.LoadEnemyData();
         }
-            // Quitar el listener una vez que la escena ha sido cargada
+        // Quitar el listener una vez que la escena ha sido cargada
     }
 
 
